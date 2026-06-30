@@ -99,12 +99,28 @@ export async function getReport(datasetId: string): Promise<ReportResponse> {
   return jsonOrThrow<ReportResponse>(resp)
 }
 
-/** Download the ChatML file from the export endpoint. */
+/** Remove pair indices, recompute the report on the cleaned set. */
+export async function cleanDataset(
+  datasetId: string,
+  removeIndices: number[],
+): Promise<{ removed: number; report: ReportResponse }> {
+  const resp = await fetch(`/datasets/${datasetId}/clean`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ remove_indices: removeIndices }),
+  })
+  return jsonOrThrow<{ removed: number; report: ReportResponse }>(resp)
+}
+
+/** Download the exported dataset (format + optional train/val split). */
 export async function downloadExport(
   datasetId: string,
   fileName: string,
+  format = 'chatml',
+  split = 0,
 ): Promise<number> {
-  const resp = await fetch(`/datasets/${datasetId}/export`)
+  const qs = `?format=${format}${split > 0 ? `&split=${split}` : ''}`
+  const resp = await fetch(`/datasets/${datasetId}/export${qs}`)
   if (!resp.ok) throw new Error('Could not download export')
   const blob = await resp.blob()
   triggerDownload(blob, fileName)

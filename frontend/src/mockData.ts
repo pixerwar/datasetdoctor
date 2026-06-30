@@ -1,6 +1,25 @@
 // Mock reports for the demo files — identical shape to the backend output
 // (docs/sample_report.json). In the state interface, Scenario is "mock-only".
-import type { Projection, ReportResponse, Scenario, Format } from './types'
+import type { Cleaning, Projection, ReportResponse, Scenario, Format } from './types'
+
+const EMPTY_ISSUES = {
+  empty_output: { indices: [], count: 0 },
+  very_short_output: { indices: [], count: 0, threshold: 10 },
+  instruction_equals_output: { indices: [], count: 0 },
+  long_token: { indices: [], count: 0, threshold: 2048 },
+}
+
+function cleanCleaning(n: number): Cleaning {
+  return {
+    n_samples: n,
+    dup_threshold: 0.95,
+    duplicate_groups: [],
+    n_duplicate_extra: 0,
+    issues: EMPTY_ISSUES,
+    token_max: 64,
+    token_p95: 48,
+  }
+}
 
 // Deterministic LCG — to scatter mock projection points organically but
 // reproducibly (the real backend returns PCA coordinates).
@@ -94,6 +113,7 @@ export const MOCK_REPORTS: Record<Scenario, ReportResponse> = {
       ],
       1.6,
     ),
+    cleaning: cleanCleaning(200),
     diversity: { score: 0.99, level: 'good', n_clusters: 198 },
     balance: {
       category_counts: {
@@ -136,6 +156,21 @@ export const MOCK_REPORTS: Record<Scenario, ReportResponse> = {
     n_samples: 40,
     embedding_provider: 'semantic',
     projection: mockProjection([{ label: 'Cluster 1', count: 40 }], 0.5),
+    cleaning: {
+      n_samples: 40,
+      dup_threshold: 0.95,
+      duplicate_groups: [
+        {
+          indices: Array.from({ length: 40 }, (_, i) => i),
+          size: 40,
+          representative_text: 'Hello, how are you?',
+        },
+      ],
+      n_duplicate_extra: 39,
+      issues: EMPTY_ISSUES,
+      token_max: 18,
+      token_p95: 18,
+    },
     diversity: { score: 0.025, level: 'high_risk', n_clusters: 1 },
     balance: { category_counts: {}, warnings: [], method: 'skipped' },
     size_adequacy: {
@@ -163,6 +198,7 @@ export const MOCK_REPORTS: Record<Scenario, ReportResponse> = {
       ],
       1.4,
     ),
+    cleaning: cleanCleaning(300),
     diversity: { score: 0.977, level: 'good', n_clusters: 293 },
     balance: {
       category_counts: { Python: 240, History: 15, Science: 15, Geography: 15, Music: 15 },
@@ -184,32 +220,66 @@ export const MOCK_REPORTS: Record<Scenario, ReportResponse> = {
   },
 }
 
-/** Build a small ChatML sample for the demo export (client-side, no backend). */
-export function mockChatml(scenario: Scenario): string {
-  const samples: Record<Scenario, [string, string][]> = {
-    good: [
-      ['What is Python?', 'Python is a high-level programming language.'],
-      ['When was the Ottoman Empire founded?', 'The Ottoman Empire was founded in 1299.'],
-    ],
-    imbalanced: [
-      ['How do you create a Python list?', 'With square brackets: my_list = [1, 2, 3].'],
-      ['What is a Python dictionary?', 'A data structure that holds key-value pairs.'],
-    ],
-    risky: [
-      ['Hello, how are you?', "I'm fine, thank you. How about you?"],
-      ['Hello, how are you?', "I'm fine, thank you. How about you?"],
-    ],
+const MOCK_SAMPLES: Record<Scenario, [string, string][]> = {
+  good: [
+    ['What is Python?', 'Python is a high-level programming language.'],
+    ['When was the Ottoman Empire founded?', 'The Ottoman Empire was founded in 1299.'],
+  ],
+  imbalanced: [
+    ['How do you create a Python list?', 'With square brackets: my_list = [1, 2, 3].'],
+    ['What is a Python dictionary?', 'A data structure that holds key-value pairs.'],
+  ],
+  risky: [
+    ['Hello, how are you?', "I'm fine, thank you. How about you?"],
+    ['Hello, how are you?', "I'm fine, thank you. How about you?"],
+  ],
+}
+
+/** Build a demo export in the chosen format (client-side, no backend). */
+export function mockExport(scenario: Scenario, format: string): string {
+  const pairs = MOCK_SAMPLES[scenario]
+  const jsonl = (rows: object[]) => rows.map((r) => JSON.stringify(r)).join('\n')
+  switch (format) {
+    case 'openai':
+      return jsonl(
+        pairs.map(([u, a]) => ({
+          messages: [
+            { role: 'user', content: u },
+            { role: 'assistant', content: a },
+          ],
+        })),
+      )
+    case 'alpaca':
+      return JSON.stringify(
+        pairs.map(([u, a]) => ({ instruction: u, input: '', output: a })),
+        null,
+        2,
+      )
+    case 'sharegpt':
+      return JSON.stringify(
+        pairs.map(([u, a]) => ({
+          conversations: [
+            { from: 'human', value: u },
+            { from: 'gpt', value: a },
+          ],
+        })),
+        null,
+        2,
+      )
+    case 'prompt_completion':
+      return jsonl(pairs.map(([u, a]) => ({ prompt: u, completion: a })))
+    default: // chatml
+      return JSON.stringify(
+        pairs.map(([u, a]) => ({
+          conversations: [
+            { role: 'user', content: u },
+            { role: 'assistant', content: a },
+          ],
+        })),
+        null,
+        2,
+      )
   }
-  return JSON.stringify(
-    samples[scenario].map(([u, a]) => ({
-      conversations: [
-        { role: 'user', content: u },
-        { role: 'assistant', content: a },
-      ],
-    })),
-    null,
-    2,
-  )
 }
 
 /** Table preview rows for the CSV demo (Configure screen). */

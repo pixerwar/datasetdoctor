@@ -1,7 +1,16 @@
-import type { ReportResponse } from '../types'
+import { useState } from 'react'
+import type { ExportFormat, ReportResponse } from '../types'
 import { MetricCard } from '../components/MetricCard'
 import { SemanticMap } from '../components/SemanticMap'
 import { DownloadIcon } from '../icons'
+
+const EXPORT_FORMATS: { value: ExportFormat; label: string }[] = [
+  { value: 'chatml', label: 'ChatML (conversations) — Unsloth' },
+  { value: 'openai', label: 'OpenAI chat (JSONL)' },
+  { value: 'alpaca', label: 'Alpaca (instruction/input/output)' },
+  { value: 'sharegpt', label: 'ShareGPT (from/value)' },
+  { value: 'prompt_completion', label: 'Prompt / completion (JSONL)' },
+]
 import {
   riskColorVar,
   riskLabel,
@@ -18,13 +27,31 @@ import {
 interface ReportScreenProps {
   report: ReportResponse
   downloading: boolean
-  onDownload: () => void
+  allowSplit: boolean
+  onDownload: (format: ExportFormat, split: number) => void
+  onReview: () => void
 }
 
-export function ReportScreen({ report, downloading, onDownload }: ReportScreenProps) {
+export function ReportScreen({
+  report,
+  downloading,
+  allowSplit,
+  onDownload,
+  onReview,
+}: ReportScreenProps) {
   const r = report.composite_risk
   const balance = balanceInfo(report)
   const minority = r.minority_category_warnings
+
+  const [format, setFormat] = useState<ExportFormat>('chatml')
+  const [split, setSplit] = useState(false)
+  const splitRatio = split ? 0.1 : 0
+
+  const c = report.cleaning
+  const cleanFindings = c
+    ? c.duplicate_groups.length > 0 ||
+      Object.values(c.issues).some((iss) => iss.count > 0)
+    : false
 
   // Special case: low risk but every category is a minority -> "Category note" (neutral)
   const lowRiskNote = r.risk_level === 'low' && minority.length > 0
@@ -132,12 +159,58 @@ export function ReportScreen({ report, downloading, onDownload }: ReportScreenPr
         </>
       )}
 
-      {/* 4.5 Download CTA */}
-      <div className="download-row">
-        <button className="btn-primary" onClick={onDownload} disabled={downloading}>
-          <DownloadIcon />
-          {downloading ? 'Downloading…' : 'Download ChatML dataset'}
-        </button>
+      {/* 4.5 Export options */}
+      <div className="section-title">Export</div>
+      <div className="form-block" style={{ maxWidth: 460 }}>
+        <div className="field">
+          <label>Format</label>
+          <select
+            value={format}
+            onChange={(e) => setFormat(e.target.value as ExportFormat)}
+          >
+            {EXPORT_FORMATS.map((f) => (
+              <option key={f.value} value={f.value}>
+                {f.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        {allowSplit && (
+          <label className="checkbox-row">
+            <input
+              type="checkbox"
+              checked={split}
+              onChange={(e) => setSplit(e.target.checked)}
+            />
+            Hold out 10% as a validation set (downloads train + val as a .zip)
+          </label>
+        )}
+      </div>
+
+      <div className="download-row cta-row">
+        {cleanFindings ? (
+          <>
+            <button className="btn-primary" onClick={onReview}>
+              Review &amp; clean →
+            </button>
+            <button
+              className="btn-link"
+              onClick={() => onDownload(format, splitRatio)}
+              disabled={downloading}
+            >
+              {downloading ? 'Downloading…' : 'Download as-is'}
+            </button>
+          </>
+        ) : (
+          <button
+            className="btn-primary"
+            onClick={() => onDownload(format, splitRatio)}
+            disabled={downloading}
+          >
+            <DownloadIcon />
+            {downloading ? 'Downloading…' : 'Download dataset'}
+          </button>
+        )}
       </div>
     </div>
   )

@@ -7,6 +7,13 @@ export type BalanceMethod = 'explicit' | 'dbscan' | 'kmeans' | 'skipped' | strin
 
 export type EmbeddingProvider = 'tfidf' | 'semantic'
 
+export type ExportFormat =
+  | 'chatml'
+  | 'openai'
+  | 'alpaca'
+  | 'sharegpt'
+  | 'prompt_completion'
+
 export interface ProjectionPoint {
   x: number
   y: number
@@ -28,10 +35,33 @@ export interface Projection {
   clusters: ClusterSummary[]
 }
 
+export interface DuplicateGroup {
+  indices: number[]
+  size: number
+  representative_text: string
+}
+
+export interface IssueInfo {
+  indices: number[]
+  count: number
+  threshold?: number
+}
+
+export interface Cleaning {
+  n_samples: number
+  dup_threshold: number
+  duplicate_groups: DuplicateGroup[]
+  n_duplicate_extra: number
+  issues: Record<string, IssueInfo>
+  token_max: number
+  token_p95: number
+}
+
 export interface ReportResponse {
   n_samples: number
   embedding_provider?: EmbeddingProvider
   projection?: Projection
+  cleaning?: Cleaning
   diversity: {
     score: number
     level: DiversityLevel
@@ -65,6 +95,7 @@ export type Screen =
   | 'configure'
   | 'processing'
   | 'report'
+  | 'clean'
   | 'export'
 
 // Detected file format (for display) — the backend may return many formats.

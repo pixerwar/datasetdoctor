@@ -611,6 +611,133 @@ textarea {
   gap: 10px;
 }
 
+/* ── Multi-source configure ────────────────────────────────────────────── */
+.source-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.source-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 15px 16px;
+  background: var(--surface-1);
+}
+.source-card-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+.format-tag {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 7px;
+  flex: none;
+}
+.source-card-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.source-remove {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 20px;
+  line-height: 1;
+  padding: 0 4px;
+  flex: none;
+}
+.source-remove:hover {
+  color: var(--text-danger);
+}
+.source-card .form-block {
+  margin-bottom: 0;
+}
+.source-card .preview-table {
+  margin-bottom: 14px;
+}
+.add-file-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  background: var(--surface-2);
+  border: 1.5px dashed var(--border-strong);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.add-file-btn:hover {
+  background: var(--surface-3);
+}
+.add-file-btn.dragover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, var(--surface-2));
+}
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.checkbox-row input {
+  margin-top: 2px;
+  accent-color: var(--accent);
+}
+
+/* ── Clean screen ──────────────────────────────────────────────────────── */
+.dup-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 13px;
+}
+.dup-count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-warning);
+  flex: none;
+}
+.dup-text {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.keep-summary {
+  margin: 22px 0 16px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.keep-summary strong {
+  color: var(--text-primary);
+}
+
 /* ── Processing screen ─────────────────────────────────────────────────── */
 .processing {
   min-height: 50vh;

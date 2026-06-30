@@ -4,7 +4,10 @@ The API layer calls this; it combines the metric/risk modules in one place.
 """
 from __future__ import annotations
 
+import numpy as np
+
 from .cache.embedding_cache import EmbeddingCache
+from .cleaning import analyze_cleaning
 from .embedding.base import EmbeddingProvider
 from .embedding.registry import TFIDF, get_provider
 from .metrics.balance import compute_balance
@@ -15,9 +18,24 @@ from .projection import compute_projection
 from .risk.composite import compute_composite_risk
 
 
-def _embedding_text(pair: dict) -> str:
+def embedding_text(pair: dict) -> str:
     """Embeddings use the instruction + output combined."""
     return f"{pair['instruction']}\n{pair['output']}"
+
+
+def compute_embeddings(
+    pairs: list[dict],
+    embedding_provider: str = TFIDF,
+    provider: EmbeddingProvider | None = None,
+    cache: EmbeddingCache | None = None,
+) -> np.ndarray:
+    """Embed all pairs once (so report + cleaning can share the result)."""
+    if provider is None:
+        provider = get_provider(embedding_provider)
+    texts = [embedding_text(p) for p in pairs]
+    if cache is not None:
+        return cache.get_or_compute(texts, provider)
+    return provider.embed(texts)
 
 
 def build_report(
@@ -26,25 +44,23 @@ def build_report(
     embedding_provider: str = TFIDF,
     provider: EmbeddingProvider | None = None,
     cache: EmbeddingCache | None = None,
+    embeddings: np.ndarray | None = None,
     diversity_threshold: float = 0.90,
     include_projection: bool = True,
+    include_cleaning: bool = True,
 ) -> dict:
     """Build a report (matching the API contract) from instruction-output pairs.
 
     embedding_provider: "tfidf" | "semantic" (model2vec). If `provider` is passed
     directly it is used (test/DI), otherwise it is resolved from the registry.
+    `embeddings` may be precomputed (via compute_embeddings) to avoid recomputing.
     """
     n = len(pairs)
     if n == 0:
         raise ValueError("At least one sample is required to build a report.")
 
-    if provider is None:
-        provider = get_provider(embedding_provider)
-    texts = [_embedding_text(p) for p in pairs]
-    if cache is not None:
-        embeddings = cache.get_or_compute(texts, provider)
-    else:
-        embeddings = provider.embed(texts)
+    if embeddings is None:
+        embeddings = compute_embeddings(pairs, embedding_provider, provider, cache)
 
     # Diversity
     diversity = compute_diversity(embeddings, threshold=diversity_threshold)
@@ -96,5 +112,9 @@ def build_report(
     # Semantic map (2D projection) — for visualization
     if include_projection:
         report["projection"] = compute_projection(pairs, embeddings)
+
+    # Cleaning analysis — near-duplicates + quality lint
+    if include_cleaning:
+        report["cleaning"] = analyze_cleaning(pairs, embeddings)
 
     return report

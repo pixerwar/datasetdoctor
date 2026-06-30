@@ -28,7 +28,10 @@ export function ExportScreen({
         </span>
         <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <span className="file-name">{fileName}</span>
-          <span className="file-meta">ChatML format · ~{sizeKb} KB</span>
+          <span className="file-meta">
+            {fileName.endsWith('.zip') ? 'train + val (zip)' : 'dataset file'} · ~
+            {sizeKb} KB
+          </span>
         </span>
       </div>
 

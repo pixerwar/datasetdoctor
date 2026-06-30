@@ -4,7 +4,7 @@ const STEPS: { key: string; label: string; screens: Screen[] }[] = [
   { key: 'upload', label: 'Upload', screens: ['upload'] },
   { key: 'configure', label: 'Configure', screens: ['configure'] },
   { key: 'process', label: 'Process', screens: ['processing'] },
-  { key: 'report', label: 'Report', screens: ['report', 'export'] },
+  { key: 'report', label: 'Report', screens: ['report', 'clean', 'export'] },
 ]
 
 const CAPTIONS: Record<Screen, string> = {
@@ -12,6 +12,7 @@ const CAPTIONS: Record<Screen, string> = {
   configure: 'Configuration',
   processing: 'Processing',
   report: 'Analysis report',
+  clean: 'Clean dataset',
   export: 'Export',
 }
 

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { EmbeddingProvider, SourceInfo } from '../types'
-import type { BuildRequest } from '../api'
-import { PlusIcon } from '../icons'
+import { FileTypeIcon, PlusIcon } from '../icons'
 
 type SourceConfig = Record<string, unknown>
 
@@ -32,6 +31,7 @@ export function ConfigureScreen({
   const [provider, setProvider] = useState<EmbeddingProvider>('semantic')
   const [tagBySource, setTagBySource] = useState(false)
   const [configs, setConfigs] = useState<Record<string, SourceConfig>>({})
+  const [dragover, setDragover] = useState(false)
   const addRef = useRef<HTMLInputElement>(null)
 
   // Initialize a default config for any newly added source.
@@ -113,13 +113,27 @@ export function ConfigureScreen({
       </div>
 
       {!isDemo && (
-        <button
-          className="add-file-btn"
-          onClick={() => addRef.current?.click()}
-          disabled={submitting}
+        <div
+          className={`add-file-btn${dragover ? ' dragover' : ''}`}
+          onClick={() => !submitting && addRef.current?.click()}
+          onDragOver={(e) => {
+            e.preventDefault()
+            setDragover(true)
+          }}
+          onDragLeave={() => setDragover(false)}
+          onDrop={(e) => {
+            e.preventDefault()
+            setDragover(false)
+            if (submitting) return
+            const f = e.dataTransfer.files?.[0]
+            if (f) onAddFile(f)
+          }}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && addRef.current?.click()}
         >
-          <PlusIcon /> Add another file
-        </button>
+          <PlusIcon /> Add another file — or drop it here
+        </div>
       )}
       <input
         ref={addRef}
@@ -185,7 +199,7 @@ function SourceCard({
   return (
     <div className="source-card">
       <div className="source-card-head">
-        <span className="format-tag">{source.detected_format.toUpperCase()}</span>
+        <FileTypeIcon format={source.detected_format} />
         <span className="source-card-name">{source.name}</span>
         {onRemove && (
           <button className="source-remove" onClick={onRemove} title="Remove">

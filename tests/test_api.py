@@ -221,6 +221,59 @@ def test_flat_prose_blocks_with_error():
     assert "flat.md" in st["error"]
 
 
+def test_clean_removes_and_recomputes():
+    # Upload a CSV with duplicate rows, build, then clean by removing indices.
+    lines = ["question,answer,topic"]
+    for i in range(60):
+        lines.append(f"Same question?,Same answer.,T{i % 2}")  # all duplicates
+    csv = "\n".join(lines).encode("utf-8")
+    up = client.post(
+        "/datasets/upload",
+        files={"file": ("dup.csv", io.BytesIO(csv), "text/csv")},
+    ).json()
+    dataset_id = up["dataset_id"]
+    sid = up["source"]["source_id"]
+    client.post(
+        f"/datasets/{dataset_id}/configure",
+        json={"sources": {sid: {"instruction_column": "question", "output_column": "answer"}}},
+    )
+    report = client.get(f"/datasets/{dataset_id}/report").json()
+    assert report["n_samples"] == 60
+    # duplicates should be detected
+    assert report["cleaning"]["n_duplicate_extra"] >= 1
+
+    # remove all but the first 5 samples
+    resp = client.post(
+        f"/datasets/{dataset_id}/clean",
+        json={"remove_indices": list(range(5, 60))},
+    )
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["removed"] == 55
+    assert body["report"]["n_samples"] == 5
+    # export now reflects the cleaned set
+    data = json.loads(client.get(f"/datasets/{dataset_id}/export").content)
+    assert len(data) == 5
+
+
+def test_clean_all_rejected():
+    up = client.post(
+        "/datasets/upload",
+        files={"file": ("a.csv", io.BytesIO(_make_csv()), "text/csv")},
+    ).json()
+    dataset_id = up["dataset_id"]
+    sid = up["source"]["source_id"]
+    client.post(
+        f"/datasets/{dataset_id}/configure",
+        json={"sources": {sid: {"instruction_column": "question", "output_column": "answer"}}},
+    )
+    resp = client.post(
+        f"/datasets/{dataset_id}/clean",
+        json={"remove_indices": list(range(120))},
+    )
+    assert resp.status_code == 400
+
+
 def test_report_before_done_conflict():
     up = client.post(
         "/datasets/upload",

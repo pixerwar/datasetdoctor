@@ -14,9 +14,11 @@ GET    /datasets/{id}/export
 """
 from __future__ import annotations
 
+import io
 import os
 import tempfile
 import uuid
+import zipfile
 from pathlib import Path
 
 from fastapi import BackgroundTasks, FastAPI, File, HTTPException, UploadFile
@@ -27,7 +29,7 @@ from pydantic import BaseModel
 from ..conversion.llm_assisted import LLMConfig, convert_txt
 from ..conversion.rule_based import convert_csv_rows
 from ..conversion.structural import convert_structural
-from ..export.chatml_export import export_chatml
+from ..export.formats import FORMATS, export_pairs, stratified_split
 from ..ingestion.base import DocumentParser
 from ..ingestion.csv_parser import CsvParser
 from ..ingestion.docx_parser import DocxParser
@@ -167,6 +169,10 @@ async def _save_and_add_source(dataset_id: str, file: UploadFile) -> Source:
 # ---------------------------------------------------------------------------
 # Request models
 # ---------------------------------------------------------------------------
+class CleanRequest(BaseModel):
+    remove_indices: list[int] = []
+
+
 class ConfigureRequest(BaseModel):
     # Per-source config keyed by source_id. Shape depends on the source mode:
     #   structured: {instruction_column, output_column, category_column?}
@@ -250,7 +256,13 @@ def _build(dataset_id: str, req: ConfigureRequest) -> None:
         if not all_pairs:
             raise ValueError("No pairs were produced from any source.")
 
-        store.update(dataset_id, pairs=all_pairs, progress=0.65)
+        store.update(
+            dataset_id,
+            pairs=all_pairs,
+            progress=0.65,
+            embedding_provider=req.embedding_provider,
+            model_size=req.model_size,
+        )
         report = build_report(
             all_pairs,
             model_size=req.model_size,
@@ -335,8 +347,46 @@ async def report(dataset_id: str) -> JSONResponse:
     return JSONResponse(record.report)
 
 
+@app.post("/datasets/{dataset_id}/clean")
+async def clean(dataset_id: str, req: CleanRequest) -> JSONResponse:
+    """Remove the given pair indices, then recompute the report on the cleaned set."""
+    record = store.get(dataset_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="dataset not found")
+    if not record.pairs:
+        raise HTTPException(status_code=409, detail="dataset is not built yet")
+
+    remove = set(req.remove_indices)
+    n_before = len(record.pairs)
+    cleaned = [p for i, p in enumerate(record.pairs) if i not in remove]
+    if not cleaned:
+        raise HTTPException(
+            status_code=400, detail="cleaning would remove every sample"
+        )
+
+    try:
+        report = build_report(
+            cleaned,
+            model_size=record.model_size,
+            embedding_provider=record.embedding_provider,
+        )
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(status_code=500, detail=str(exc))
+
+    store.update(dataset_id, pairs=cleaned, report=report)
+    return JSONResponse({"removed": n_before - len(cleaned), "report": report})
+
+
+def _disposition(filename: str) -> dict:
+    return {"Content-Disposition": f'attachment; filename="{filename}"'}
+
+
 @app.get("/datasets/{dataset_id}/export")
-async def export(dataset_id: str) -> Response:
+async def export(
+    dataset_id: str,
+    format: str = "chatml",
+    split: float = 0.0,
+) -> Response:
     record = store.get(dataset_id)
     if record is None:
         raise HTTPException(status_code=404, detail="dataset not found")
@@ -345,15 +395,36 @@ async def export(dataset_id: str) -> Response:
             status_code=409,
             detail=f"no data to export (status: {record.status})",
         )
-    content = export_chatml(record.pairs)
+    if format not in FORMATS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"unknown format: {format!r}. Valid: {sorted(FORMATS)}",
+        )
+    split = max(0.0, min(0.5, split))
+    short = dataset_id[:8]
+
+    # Train/val split -> a ZIP with two files.
+    if split > 0:
+        train, val = stratified_split(record.pairs, split)
+        train_content, ext = export_pairs(train, format)
+        val_content, _ = export_pairs(val, format)
+        buf = io.BytesIO()
+        with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+            zf.writestr(f"train.{ext}", train_content)
+            zf.writestr(f"val.{ext}", val_content)
+        return Response(
+            content=buf.getvalue(),
+            media_type="application/zip",
+            headers=_disposition(f"dataset_{short}_{format}.zip"),
+        )
+
+    # Single file.
+    content, ext = export_pairs(record.pairs, format)
+    media = "application/json" if ext == "json" else "application/x-ndjson"
     return Response(
         content=content,
-        media_type="application/json",
-        headers={
-            "Content-Disposition": (
-                f'attachment; filename="dataset_{dataset_id}_chatml.json"'
-            )
-        },
+        media_type=media,
+        headers=_disposition(f"dataset_{short}_{format}.{ext}"),
     )
 
 

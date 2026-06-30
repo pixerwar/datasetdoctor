@@ -35,6 +35,9 @@ class DatasetRecord:
     pairs: list[dict] | None = None  # combined pairs across all sources
     report: dict | None = None
     error: str | None = None
+    # Remembered build options so /clean can recompute consistently.
+    embedding_provider: str = "tfidf"
+    model_size: str = "3b"
 
 
 class DatasetStore:

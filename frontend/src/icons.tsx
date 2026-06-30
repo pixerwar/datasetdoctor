@@ -58,3 +58,59 @@ export function PlusIcon({ size = 15 }: { size?: number }) {
     </svg>
   )
 }
+
+// Per-format file icon: a document glyph with a colored label band.
+const FORMAT_META: Record<string, { label: string; color: string }> = {
+  csv: { label: 'CSV', color: '#2f7d5b' },
+  xlsx: { label: 'XLSX', color: '#1f7a4d' },
+  jsonl: { label: 'JSON', color: '#7a4ec8' },
+  json: { label: 'JSON', color: '#7a4ec8' },
+  txt: { label: 'TXT', color: '#57574f' },
+  markdown: { label: 'MD', color: '#1f8a8a' },
+  pdf: { label: 'PDF', color: '#b0492f' },
+  docx: { label: 'DOCX', color: '#3a55c8' },
+}
+
+export function FileTypeIcon({ format, size = 28 }: { format: string; size?: number }) {
+  const meta = FORMAT_META[format] ?? {
+    label: format.toUpperCase().slice(0, 4),
+    color: '#8c8c83',
+  }
+  return (
+    <svg
+      width={size}
+      height={(size * 36) / 30}
+      viewBox="0 0 30 36"
+      fill="none"
+      aria-label={`${meta.label} file`}
+    >
+      {/* page with folded corner */}
+      <path
+        d="M5 3h13l7 7v21a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"
+        fill="var(--surface-1)"
+        stroke="var(--border-strong)"
+        strokeWidth="1.2"
+      />
+      <path
+        d="M18 3v7h7"
+        fill="none"
+        stroke="var(--border-strong)"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      {/* colored label band */}
+      <rect x="6.5" y="20" width="17" height="10" rx="2" fill={meta.color} />
+      <text
+        x="15"
+        y="27.4"
+        textAnchor="middle"
+        fontSize={meta.label.length >= 4 ? 6 : 7}
+        fontWeight="700"
+        fill="#ffffff"
+        fontFamily="'IBM Plex Mono', monospace"
+      >
+        {meta.label}
+      </text>
+    </svg>
+  )
+}

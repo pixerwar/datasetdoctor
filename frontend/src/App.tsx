@@ -9,6 +9,7 @@ import type {
 } from './types'
 import {
   addSource,
+  cleanDataset,
   configureDataset,
   downloadExport,
   getReport,
@@ -17,22 +18,32 @@ import {
   triggerDownload,
   uploadFile,
 } from './api'
-import { DEMO_CSV_PREVIEW, MOCK_REPORTS, mockChatml, type DemoFile } from './mockData'
+import { DEMO_CSV_PREVIEW, MOCK_REPORTS, mockExport, type DemoFile } from './mockData'
 import { Sidebar } from './components/Sidebar'
 import { Stepper } from './components/Stepper'
 import { UploadScreen } from './screens/UploadScreen'
 import { ConfigureScreen } from './screens/ConfigureScreen'
 import { ProcessingScreen } from './screens/ProcessingScreen'
 import { ReportScreen } from './screens/ReportScreen'
+import { CleanScreen } from './screens/CleanScreen'
 import { ExportScreen } from './screens/ExportScreen'
 
 function baseName(name: string): string {
   return name.replace(/\.[^.]+$/, '')
 }
 
-function exportNameFor(sources: SourceInfo[]): string {
+const FORMAT_EXT: Record<string, string> = {
+  chatml: 'json',
+  openai: 'jsonl',
+  alpaca: 'json',
+  sharegpt: 'json',
+  prompt_completion: 'jsonl',
+}
+
+function exportNameFor(sources: SourceInfo[], format = 'chatml', split = 0): string {
   const base = sources.length === 1 ? baseName(sources[0].name) : 'dataset'
-  return `${base}_chatml.json`
+  if (split > 0) return `${base}_${format}.zip`
+  return `${base}_${format}.${FORMAT_EXT[format] ?? 'json'}`
 }
 
 function datasetLabel(sources: SourceInfo[]): string {
@@ -56,6 +67,7 @@ export default function App() {
   const [progress, setProgress] = useState(0)
   const [report, setReport] = useState<ReportResponse | null>(null)
   const [exportSizeKb, setExportSizeKb] = useState(0)
+  const [exportFileName, setExportFileName] = useState('')
 
   const [submitting, setSubmitting] = useState(false)
   const [downloading, setDownloading] = useState(false)
@@ -264,22 +276,66 @@ export default function App() {
     setScreen('report')
   }
 
-  async function handleDownload() {
+  // ── Apply cleaning (remove selected pairs, recompute) ───────────────────
+  async function handleApplyClean(removeIndices: number[]) {
+    if (removeIndices.length === 0) return
+    setError(null)
+    if (scenario) {
+      // Mock: shrink the sample count and clear the findings.
+      setReport((prev) =>
+        prev
+          ? {
+              ...prev,
+              n_samples: prev.n_samples - removeIndices.length,
+              cleaning: {
+                n_samples: prev.n_samples - removeIndices.length,
+                dup_threshold: 0.95,
+                duplicate_groups: [],
+                n_duplicate_extra: 0,
+                issues: {},
+                token_max: prev.cleaning?.token_max ?? 0,
+                token_p95: prev.cleaning?.token_p95 ?? 0,
+              },
+            }
+          : prev,
+      )
+      setScreen('report')
+      return
+    }
+    if (!datasetId) return
+    setSubmitting(true)
+    try {
+      const res = await cleanDataset(datasetId, removeIndices)
+      setReport(res.report)
+      setDatasets((prev) =>
+        prev.map((d) => (d.id === datasetId ? { ...d, report: res.report } : d)),
+      )
+      setScreen('report')
+    } catch (e) {
+      setError(`Cleaning failed: ${(e as Error).message}`)
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  async function handleDownload(format = 'chatml', split = 0) {
     setDownloading(true)
-    const name = exportNameFor(sources)
+    const name = exportNameFor(sources, format, split)
     try {
       let sizeBytes: number
       if (scenario) {
-        const text = mockChatml(scenario)
+        // Demos are client-side mock; no split.
+        const text = mockExport(scenario, format)
         const blob = new Blob([text], { type: 'application/json' })
         triggerDownload(blob, name)
         sizeBytes = blob.size
       } else if (datasetId) {
-        sizeBytes = await downloadExport(datasetId, name)
+        sizeBytes = await downloadExport(datasetId, name, format, split)
       } else {
         throw new Error('No data to download')
       }
       setExportSizeKb(Math.max(1, Math.round(sizeBytes / 1024)))
+      setExportFileName(name)
       setScreen('export')
     } catch (e) {
       setError(`Download failed: ${(e as Error).message}`)
@@ -333,13 +389,25 @@ export default function App() {
           <ReportScreen
             report={report}
             downloading={downloading}
+            allowSplit={scenario === null}
             onDownload={handleDownload}
+            onReview={() => setScreen('clean')}
+          />
+        )}
+
+        {screen === 'clean' && report && (
+          <CleanScreen
+            report={report}
+            applying={submitting}
+            error={error}
+            onApply={handleApplyClean}
+            onBack={() => setScreen('report')}
           />
         )}
 
         {screen === 'export' && (
           <ExportScreen
-            fileName={exportNameFor(sources)}
+            fileName={exportFileName || exportNameFor(sources)}
             sizeKb={exportSizeKb}
             onNew={resetToUpload}
             onBackToReport={() => setScreen('report')}
