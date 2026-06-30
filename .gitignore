@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+*.sqlite
+.pytest_cache/
+
+# Frontend build artifacts
+frontend/node_modules/
+frontend/dist/
+
+# Internal planning / handoff documents (not part of the public repo)
+briefs/
+
+# Claude Code local config
+.claude/

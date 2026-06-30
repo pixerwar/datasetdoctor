@@ -1,0 +1,3470 @@
+{
+  "good": {
+    "n_samples": 200,
+    "embedding_provider": "tfidf",
+    "diversity": {
+      "score": 0.99,
+      "level": "good",
+      "n_clusters": 198
+    },
+    "balance": {
+      "category_counts": {
+        "Python": 25,
+        "History": 25,
+        "Science": 25,
+        "Geography": 25,
+        "Music": 25,
+        "Sports": 25,
+        "Art": 25,
+        "Food": 25
+      },
+      "warnings": [],
+      "method": "explicit"
+    },
+    "size_adequacy": {
+      "category": "good",
+      "message": "A solid foundation, suitable for most niche tasks",
+      "relative_note": "Recommended minimum for 8 categories is ~240 samples; current 200 is below that."
+    },
+    "training_time_estimate": {
+      "min_hours": 0.04,
+      "max_hours": 0.08,
+      "model_size": "3b"
+    },
+    "composite_risk": {
+      "risk_level": "low",
+      "minority_category_warnings": [
+        "Python",
+        "History",
+        "Science",
+        "Geography",
+        "Music",
+        "Sports",
+        "Art",
+        "Food"
+      ],
+      "suggested_epochs": 3,
+      "should_review_before_training": false
+    },
+    "projection": {
+      "method": "pca",
+      "points": [
+        {
+          "x": -0.2594,
+          "y": 0.5493,
+          "label": "Python",
+          "text": "Question 0 about Python: what can you say?"
+        },
+        {
+          "x": 0.3301,
+          "y": 0.012,
+          "label": "History",
+          "text": "Question 1 about History: what can you say?"
+        },
+        {
+          "x": -0.2519,
+          "y": -0.6626,
+          "label": "Science",
+          "text": "Question 2 about Science: what can you say?"
+        },
+        {
+          "x": -0.0649,
+          "y": 0.2778,
+          "label": "Geography",
+          "text": "Question 3 about Geography: what can you say?"
+        },
+        {
+          "x": -0.273,
+          "y": 0.0355,
+          "label": "Music",
+          "text": "Question 4 about Music: what can you say?"
+        },
+        {
+          "x": -0.1244,
+          "y": -0.0905,
+          "label": "Sports",
+          "text": "Question 5 about Sports: what can you say?"
+        },
+        {
+          "x": 0.7358,
+          "y": -0.0204,
+          "label": "Art",
+          "text": "Question 6 about Art: what can you say?"
+        },
+        {
+          "x": -0.0583,
+          "y": -0.0411,
+          "label": "Food",
+          "text": "Question 7 about Food: what can you say?"
+        },
+        {
+          "x": -0.2594,
+          "y": 0.5493,
+          "label": "Python",
+          "text": "Question 8 about Python: what can you say?"
+        },
+        {
+          "x": 0.3047,
+          "y": 0.0142,
+          "label": "History",
+          "text": "Question 9 about History: what can you say?"
+        },
+        {
+          "x": -0.2075,
+          "y": -0.5381,
+          "label": "Science",
+          "text": "Question 10 about Science: what can you say?"
+        },
+        {
+          "x": -0.058,
+          "y": 0.204,
+          "label": "Geography",
+          "text": "Question 11 about Geography: what can you say?"
+        },
+        {
+          "x": -0.2327,
+          "y": 0.0287,
+          "label": "Music",
+          "text": "Question 12 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 13 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 14 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 15 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 16 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 17 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 18 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 19 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1792,
+          "y": 0.0103,
+          "label": "Music",
+          "text": "Question 20 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 21 about Sports: what can you say?"
+        },
+        {
+          "x": 0.4899,
+          "y": -0.0153,
+          "label": "Art",
+          "text": "Question 22 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 23 about Food: what can you say?"
+        },
+        {
+          "x": -0.1749,
+          "y": 0.3409,
+          "label": "Python",
+          "text": "Question 24 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 25 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 26 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 27 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 28 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 29 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 30 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 31 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 32 about Python: what can you say?"
+        },
+        {
+          "x": 0.1936,
+          "y": -0.0045,
+          "label": "History",
+          "text": "Question 33 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 34 about Science: what can you say?"
+        },
+        {
+          "x": -0.0449,
+          "y": 0.1647,
+          "label": "Geography",
+          "text": "Question 35 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 36 about Music: what can you say?"
+        },
+        {
+          "x": -0.0894,
+          "y": -0.0585,
+          "label": "Sports",
+          "text": "Question 37 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 38 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 39 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 40 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 41 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 42 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 43 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 44 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 45 about Sports: what can you say?"
+        },
+        {
+          "x": 0.4865,
+          "y": -0.0247,
+          "label": "Art",
+          "text": "Question 46 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 47 about Food: what can you say?"
+        },
+        {
+          "x": -0.1671,
+          "y": 0.3421,
+          "label": "Python",
+          "text": "Question 48 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 49 about History: what can you say?"
+        },
+        {
+          "x": -0.1723,
+          "y": -0.4238,
+          "label": "Science",
+          "text": "Question 50 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 51 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 52 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 53 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 54 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 55 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 56 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 57 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 58 about Science: what can you say?"
+        },
+        {
+          "x": -0.0486,
+          "y": 0.1545,
+          "label": "Geography",
+          "text": "Question 59 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 60 about Music: what can you say?"
+        },
+        {
+          "x": -0.0815,
+          "y": -0.0573,
+          "label": "Sports",
+          "text": "Question 61 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 62 about Art: what can you say?"
+        },
+        {
+          "x": -0.047,
+          "y": -0.0209,
+          "label": "Food",
+          "text": "Question 63 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 64 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 65 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 66 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 67 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 68 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 69 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 70 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 71 about Food: what can you say?"
+        },
+        {
+          "x": -0.1707,
+          "y": 0.3321,
+          "label": "Python",
+          "text": "Question 72 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 73 about History: what can you say?"
+        },
+        {
+          "x": -0.1645,
+          "y": -0.4226,
+          "label": "Science",
+          "text": "Question 74 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 75 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1834,
+          "y": 0.0191,
+          "label": "Music",
+          "text": "Question 76 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 77 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 78 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 79 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 80 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 81 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 82 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 83 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 84 about Music: what can you say?"
+        },
+        {
+          "x": -0.0852,
+          "y": -0.0674,
+          "label": "Sports",
+          "text": "Question 85 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 86 about Art: what can you say?"
+        },
+        {
+          "x": -0.0387,
+          "y": -0.0196,
+          "label": "Food",
+          "text": "Question 87 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 88 about Python: what can you say?"
+        },
+        {
+          "x": 0.1894,
+          "y": 0.0043,
+          "label": "History",
+          "text": "Question 89 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 90 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 91 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 92 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 93 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 94 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 95 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 96 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 97 about History: what can you say?"
+        },
+        {
+          "x": -0.1681,
+          "y": -0.4325,
+          "label": "Science",
+          "text": "Question 98 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 99 about Geography: what can you say?"
+        },
+        {
+          "x": -0.2721,
+          "y": -0.1205,
+          "label": "Music",
+          "text": "Question 100 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 101 about Sports: what can you say?"
+        },
+        {
+          "x": 0.4825,
+          "y": -0.0164,
+          "label": "Art",
+          "text": "Question 102 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 103 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 104 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 105 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 106 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 107 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 108 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 109 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 110 about Art: what can you say?"
+        },
+        {
+          "x": -0.0426,
+          "y": -0.0302,
+          "label": "Food",
+          "text": "Question 111 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 112 about Python: what can you say?"
+        },
+        {
+          "x": 0.1972,
+          "y": 0.0055,
+          "label": "History",
+          "text": "Question 113 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 114 about Science: what can you say?"
+        },
+        {
+          "x": -0.0529,
+          "y": 0.1635,
+          "label": "Geography",
+          "text": "Question 115 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 116 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 117 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 118 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 119 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 120 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 121 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 122 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 123 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1792,
+          "y": 0.0103,
+          "label": "Music",
+          "text": "Question 124 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 125 about Sports: what can you say?"
+        },
+        {
+          "x": 0.4899,
+          "y": -0.0153,
+          "label": "Art",
+          "text": "Question 126 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 127 about Food: what can you say?"
+        },
+        {
+          "x": -0.1749,
+          "y": 0.3409,
+          "label": "Python",
+          "text": "Question 128 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 129 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 130 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 131 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 132 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 133 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 134 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 135 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 136 about Python: what can you say?"
+        },
+        {
+          "x": 0.1936,
+          "y": -0.0045,
+          "label": "History",
+          "text": "Question 137 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 138 about Science: what can you say?"
+        },
+        {
+          "x": -0.0449,
+          "y": 0.1647,
+          "label": "Geography",
+          "text": "Question 139 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 140 about Music: what can you say?"
+        },
+        {
+          "x": -0.0894,
+          "y": -0.0585,
+          "label": "Sports",
+          "text": "Question 141 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 142 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 143 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 144 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 145 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 146 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 147 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 148 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 149 about Sports: what can you say?"
+        },
+        {
+          "x": 0.4865,
+          "y": -0.0247,
+          "label": "Art",
+          "text": "Question 150 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 151 about Food: what can you say?"
+        },
+        {
+          "x": -0.1671,
+          "y": 0.3421,
+          "label": "Python",
+          "text": "Question 152 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 153 about History: what can you say?"
+        },
+        {
+          "x": -0.1723,
+          "y": -0.4238,
+          "label": "Science",
+          "text": "Question 154 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 155 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 156 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 157 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 158 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 159 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 160 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 161 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 162 about Science: what can you say?"
+        },
+        {
+          "x": -0.0486,
+          "y": 0.1545,
+          "label": "Geography",
+          "text": "Question 163 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 164 about Music: what can you say?"
+        },
+        {
+          "x": -0.0815,
+          "y": -0.0573,
+          "label": "Sports",
+          "text": "Question 165 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 166 about Art: what can you say?"
+        },
+        {
+          "x": -0.047,
+          "y": -0.0209,
+          "label": "Food",
+          "text": "Question 167 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 168 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 169 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 170 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 171 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 172 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 173 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 174 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 175 about Food: what can you say?"
+        },
+        {
+          "x": -0.1707,
+          "y": 0.3321,
+          "label": "Python",
+          "text": "Question 176 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 177 about History: what can you say?"
+        },
+        {
+          "x": -0.1645,
+          "y": -0.4226,
+          "label": "Science",
+          "text": "Question 178 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 179 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1834,
+          "y": 0.0191,
+          "label": "Music",
+          "text": "Question 180 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 181 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 182 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 183 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 184 about Python: what can you say?"
+        },
+        {
+          "x": 0.2038,
+          "y": 0.0033,
+          "label": "History",
+          "text": "Question 185 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 186 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 187 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 188 about Music: what can you say?"
+        },
+        {
+          "x": -0.0852,
+          "y": -0.0674,
+          "label": "Sports",
+          "text": "Question 189 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 190 about Art: what can you say?"
+        },
+        {
+          "x": -0.0387,
+          "y": -0.0196,
+          "label": "Food",
+          "text": "Question 191 about Food: what can you say?"
+        },
+        {
+          "x": -0.1729,
+          "y": 0.3514,
+          "label": "Python",
+          "text": "Question 192 about Python: what can you say?"
+        },
+        {
+          "x": 0.1894,
+          "y": 0.0043,
+          "label": "History",
+          "text": "Question 193 about History: what can you say?"
+        },
+        {
+          "x": -0.1702,
+          "y": -0.4391,
+          "label": "Science",
+          "text": "Question 194 about Science: what can you say?"
+        },
+        {
+          "x": -0.0467,
+          "y": 0.1683,
+          "label": "Geography",
+          "text": "Question 195 about Geography: what can you say?"
+        },
+        {
+          "x": -0.1817,
+          "y": 0.0186,
+          "label": "Music",
+          "text": "Question 196 about Music: what can you say?"
+        },
+        {
+          "x": -0.0845,
+          "y": -0.0617,
+          "label": "Sports",
+          "text": "Question 197 about Sports: what can you say?"
+        },
+        {
+          "x": 0.5044,
+          "y": -0.018,
+          "label": "Art",
+          "text": "Question 198 about Art: what can you say?"
+        },
+        {
+          "x": -0.0404,
+          "y": -0.0229,
+          "label": "Food",
+          "text": "Question 199 about Food: what can you say?"
+        }
+      ],
+      "clusters": [
+        {
+          "label": "Python",
+          "count": 25,
+          "share": 0.125,
+          "example": "Question 0 about Python: what can you say?"
+        },
+        {
+          "label": "History",
+          "count": 25,
+          "share": 0.125,
+          "example": "Question 1 about History: what can you say?"
+        },
+        {
+          "label": "Science",
+          "count": 25,
+          "share": 0.125,
+          "example": "Question 2 about Science: what can you say?"
+        },
+        {
+          "label": "Geography",
+          "count": 25,
+          "share": 0.125,
+          "example": "Question 3 about Geography: what can you say?"
+        },
+        {
+          "label": "Music",
+          "count": 25,
+          "share": 0.125,
+          "example": "Question 4 about Music: what can you say?"
+        },
+        {
+          "label": "Sports",
+          "count": 25,
+          "share": 0.125,
+          "example": "Question 5 about Sports: what can you say?"
+        },
+        {
+          "label": "Art",
+          "count": 25,
+          "share": 0.125,
+          "example": "Question 6 about Art: what can you say?"
+        },
+        {
+          "label": "Food",
+          "count": 25,
+          "share": 0.125,
+          "example": "Question 7 about Food: what can you say?"
+        }
+      ],
+      "truncated": 0
+    }
+  },
+  "risky": {
+    "n_samples": 40,
+    "embedding_provider": "tfidf",
+    "diversity": {
+      "score": 0.025,
+      "level": "high_risk",
+      "n_clusters": 1
+    },
+    "balance": {
+      "category_counts": {},
+      "warnings": [],
+      "method": "skipped"
+    },
+    "size_adequacy": {
+      "category": "minimal",
+      "message": "Very low; high risk of memorization"
+    },
+    "training_time_estimate": {
+      "min_hours": 0.01,
+      "max_hours": 0.02,
+      "model_size": "3b"
+    },
+    "composite_risk": {
+      "risk_level": "high",
+      "minority_category_warnings": [],
+      "suggested_epochs": 1,
+      "should_review_before_training": true
+    },
+    "projection": {
+      "method": "pca",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "label": "Cluster 1",
+          "text": "Hello, how are you?"
+        }
+      ],
+      "clusters": [
+        {
+          "label": "Cluster 1",
+          "count": 40,
+          "share": 1.0,
+          "example": "Hello, how are you?"
+        }
+      ],
+      "truncated": 0
+    }
+  },
+  "imbalanced": {
+    "n_samples": 300,
+    "embedding_provider": "tfidf",
+    "diversity": {
+      "score": 0.9766666666666667,
+      "level": "good",
+      "n_clusters": 293
+    },
+    "balance": {
+      "category_counts": {
+        "Python": 240,
+        "History": 15,
+        "Science": 15,
+        "Geography": 15,
+        "Music": 15
+      },
+      "warnings": [
+        "Category 'Python' covers 80% of the samples (dominant)."
+      ],
+      "method": "explicit"
+    },
+    "size_adequacy": {
+      "category": "good",
+      "message": "A solid foundation, suitable for most niche tasks",
+      "relative_note": "Recommended minimum for 5 categories (~150 samples) is met."
+    },
+    "training_time_estimate": {
+      "min_hours": 0.06,
+      "max_hours": 0.13,
+      "model_size": "3b"
+    },
+    "composite_risk": {
+      "risk_level": "medium_high",
+      "minority_category_warnings": [
+        "History",
+        "Science",
+        "Geography",
+        "Music"
+      ],
+      "suggested_epochs": 1,
+      "should_review_before_training": true
+    },
+    "projection": {
+      "method": "pca",
+      "points": [
+        {
+          "x": 0.5524,
+          "y": -0.0085,
+          "label": "Python",
+          "text": "Python question 0: what is the detail?"
+        },
+        {
+          "x": 0.5524,
+          "y": -0.0085,
+          "label": "Python",
+          "text": "Python question 1: what is the detail?"
+        },
+        {
+          "x": 0.5524,
+          "y": -0.0085,
+          "label": "Python",
+          "text": "Python question 2: what is the detail?"
+        },
+        {
+          "x": 0.5524,
+          "y": -0.0085,
+          "label": "Python",
+          "text": "Python question 3: what is the detail?"
+        },
+        {
+          "x": 0.4119,
+          "y": -0.0061,
+          "label": "Python",
+          "text": "Python question 4: what is the detail?"
+        },
+        {
+          "x": 0.4103,
+          "y": -0.0052,
+          "label": "Python",
+          "text": "Python question 5: what is the detail?"
+        },
+        {
+          "x": 0.5524,
+          "y": -0.0085,
+          "label": "Python",
+          "text": "Python question 6: what is the detail?"
+        },
+        {
+          "x": 0.5524,
+          "y": -0.0085,
+          "label": "Python",
+          "text": "Python question 7: what is the detail?"
+        },
+        {
+          "x": 0.5524,
+          "y": -0.0085,
+          "label": "Python",
+          "text": "Python question 8: what is the detail?"
+        },
+        {
+          "x": 0.4103,
+          "y": -0.0061,
+          "label": "Python",
+          "text": "Python question 9: what is the detail?"
+        },
+        {
+          "x": 0.2118,
+          "y": -0.0025,
+          "label": "Python",
+          "text": "Python question 10: what is the detail?"
+        },
+        {
+          "x": 0.2005,
+          "y": 0.0134,
+          "label": "Python",
+          "text": "Python question 11: what is the detail?"
+        },
+        {
+          "x": 0.2332,
+          "y": -0.0031,
+          "label": "Python",
+          "text": "Python question 12: what is the detail?"
+        },
+        {
+          "x": 0.2209,
+          "y": -0.0025,
+          "label": "Python",
+          "text": "Python question 13: what is the detail?"
+        },
+        {
+          "x": 0.2206,
+          "y": -0.0024,
+          "label": "Python",
+          "text": "Python question 14: what is the detail?"
+        },
+        {
+          "x": 0.2113,
+          "y": 0.006,
+          "label": "Python",
+          "text": "Python question 15: what is the detail?"
+        },
+        {
+          "x": 0.2003,
+          "y": -0.001,
+          "label": "Python",
+          "text": "Python question 16: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 17: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 18: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 19: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 20: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 21: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 22: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 23: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 24: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 25: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 26: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 27: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 28: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 29: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 30: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 31: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 32: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 33: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 34: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 35: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 36: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 37: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 38: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 39: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 40: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 41: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 42: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 43: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 44: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 45: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 46: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 47: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 48: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 49: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 50: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 51: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 52: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 53: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 54: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 55: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 56: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 57: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 58: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 59: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 60: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 61: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 62: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 63: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 64: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 65: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 66: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 67: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 68: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 69: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 70: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 71: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 72: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 73: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 74: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 75: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 76: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 77: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 78: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 79: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 80: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 81: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 82: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 83: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 84: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 85: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 86: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 87: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 88: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 89: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 90: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 91: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 92: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 93: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 94: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 95: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 96: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 97: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 98: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 99: what is the detail?"
+        },
+        {
+          "x": 0.0956,
+          "y": 0.2326,
+          "label": "Python",
+          "text": "Python question 100: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 101: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 102: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 103: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 104: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 105: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 106: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 107: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 108: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 109: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 110: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 111: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 112: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 113: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 114: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 115: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 116: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 117: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 118: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 119: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 120: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 121: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 122: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 123: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 124: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 125: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 126: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 127: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 128: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 129: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 130: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 131: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 132: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 133: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 134: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 135: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 136: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 137: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 138: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 139: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 140: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 141: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 142: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 143: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 144: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 145: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 146: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 147: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 148: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 149: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 150: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 151: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 152: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 153: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 154: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 155: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 156: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 157: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 158: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 159: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 160: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 161: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 162: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 163: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 164: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 165: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 166: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 167: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 168: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 169: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 170: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 171: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 172: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 173: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 174: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 175: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 176: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 177: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 178: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 179: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 180: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 181: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 182: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 183: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 184: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 185: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 186: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 187: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 188: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 189: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 190: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 191: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 192: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 193: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 194: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 195: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 196: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 197: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 198: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 199: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 200: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 201: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 202: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 203: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 204: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 205: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 206: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 207: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 208: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 209: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 210: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 211: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 212: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 213: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 214: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 215: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 216: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 217: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 218: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 219: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 220: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 221: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 222: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 223: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 224: what is the detail?"
+        },
+        {
+          "x": 0.084,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 225: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": 0.0002,
+          "label": "Python",
+          "text": "Python question 226: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 227: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 228: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 229: what is the detail?"
+        },
+        {
+          "x": 0.0832,
+          "y": -0.0003,
+          "label": "Python",
+          "text": "Python question 230: what is the detail?"
+        },
+        {
+          "x": 0.0796,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 231: what is the detail?"
+        },
+        {
+          "x": 0.0788,
+          "y": 0.0003,
+          "label": "Python",
+          "text": "Python question 232: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 233: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 234: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 235: what is the detail?"
+        },
+        {
+          "x": 0.0792,
+          "y": 0.0062,
+          "label": "Python",
+          "text": "Python question 236: what is the detail?"
+        },
+        {
+          "x": 0.0795,
+          "y": -0.0001,
+          "label": "Python",
+          "text": "Python question 237: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 238: what is the detail?"
+        },
+        {
+          "x": 0.0804,
+          "y": -0.0002,
+          "label": "Python",
+          "text": "Python question 239: what is the detail?"
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 240: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 241: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 242: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 243: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 244: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 245: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 246: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 247: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 248: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 249: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 250: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 251: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 252: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 253: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 254: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 255: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 256: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 257: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 258: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 259: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 260: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 261: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 262: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 263: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 264: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 265: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 266: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 267: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 268: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 269: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 270: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 271: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 272: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 273: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 274: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 275: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 276: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 277: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 278: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 279: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 280: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 281: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 282: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 283: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 284: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 285: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 286: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 287: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 288: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 289: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 290: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 291: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 292: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 293: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 294: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 295: explain."
+        },
+        {
+          "x": -0.4136,
+          "y": 0.0728,
+          "label": "History",
+          "text": "History question 296: explain."
+        },
+        {
+          "x": -0.4299,
+          "y": 0.5019,
+          "label": "Science",
+          "text": "Science question 297: explain."
+        },
+        {
+          "x": -0.3432,
+          "y": -0.1856,
+          "label": "Geography",
+          "text": "Geography question 298: explain."
+        },
+        {
+          "x": -0.4537,
+          "y": -0.4033,
+          "label": "Music",
+          "text": "Music question 299: explain."
+        }
+      ],
+      "clusters": [
+        {
+          "label": "Python",
+          "count": 240,
+          "share": 0.8,
+          "example": "Python question 0: what is the detail?"
+        },
+        {
+          "label": "History",
+          "count": 15,
+          "share": 0.05,
+          "example": "History question 252: explain."
+        },
+        {
+          "label": "Science",
+          "count": 15,
+          "share": 0.05,
+          "example": "Science question 241: explain."
+        },
+        {
+          "label": "Geography",
+          "count": 15,
+          "share": 0.05,
+          "example": "Geography question 262: explain."
+        },
+        {
+          "label": "Music",
+          "count": 15,
+          "share": 0.05,
+          "example": "Music question 243: explain."
+        }
+      ],
+      "truncated": 0
+    }
+  }
+}
