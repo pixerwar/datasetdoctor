@@ -47,12 +47,29 @@ export interface IssueInfo {
   threshold?: number
 }
 
+export interface PiiDetector {
+  type: string
+  label: string
+  count: number // total matches
+  n_samples: number // pairs containing this type
+  indices: number[]
+  sample: string | null // masked example
+}
+
+export interface Pii {
+  n_flagged: number // pairs with any sensitive match
+  indices: number[]
+  detectors: PiiDetector[]
+  truncated: number
+}
+
 export interface Cleaning {
   n_samples: number
   dup_threshold: number
   duplicate_groups: DuplicateGroup[]
   n_duplicate_extra: number
   issues: Record<string, IssueInfo>
+  pii?: Pii
   token_max: number
   token_p95: number
 }

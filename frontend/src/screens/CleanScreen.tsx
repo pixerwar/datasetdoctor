@@ -5,7 +5,7 @@ interface CleanScreenProps {
   report: ReportResponse
   applying: boolean
   error: string | null
-  onApply: (removeIndices: number[]) => void
+  onApply: (removeIndices: number[], redactPii: boolean) => void
   onBack: () => void
 }
 
@@ -28,6 +28,8 @@ export function CleanScreen({
   const issueKeys = Object.keys(cleaning.issues).filter(
     (k) => cleaning.issues[k].count > 0,
   )
+  const pii = cleaning.pii
+  const hasPii = !!pii && pii.n_flagged > 0
 
   const [dedup, setDedup] = useState(groups.length > 0)
   const [issueOn, setIssueOn] = useState<Record<string, boolean>>(() => {
@@ -35,6 +37,10 @@ export function CleanScreen({
     for (const k of issueKeys) init[k] = ISSUE_META[k]?.defaultOn ?? false
     return init
   })
+  // Sensitive content: default to redacting (keep the samples, mask the secrets)
+  // rather than removing whole pairs.
+  const [redactPii, setRedactPii] = useState(hasPii)
+  const [removePii, setRemovePii] = useState(false)
 
   const removeIndices = useMemo(() => {
     const set = new Set<number>()
@@ -45,12 +51,16 @@ export function CleanScreen({
     for (const k of issueKeys) {
       if (issueOn[k]) cleaning.issues[k].indices.forEach((i) => set.add(i))
     }
+    if (removePii && pii) pii.indices.forEach((i) => set.add(i))
     return Array.from(set)
-  }, [dedup, issueOn, groups, issueKeys, cleaning])
+  }, [dedup, issueOn, groups, issueKeys, cleaning, removePii, pii])
 
   const total = report.n_samples
   const keep = total - removeIndices.length
-  const nothingFound = groups.length === 0 && issueKeys.length === 0
+  const nothingFound =
+    groups.length === 0 && issueKeys.length === 0 && !hasPii
+  // Redacting alone (no removals) is still a valid action to apply.
+  const canApply = removeIndices.length > 0 || (redactPii && hasPii)
 
   return (
     <div className="screen-content">
@@ -115,16 +125,54 @@ export function CleanScreen({
         </>
       )}
 
+      {hasPii && pii && (
+        <>
+          <div className="section-title">
+            Sensitive content · {pii.n_flagged} sample{pii.n_flagged === 1 ? '' : 's'}
+          </div>
+          <div className="source-list">
+            {pii.detectors.map((d) => (
+              <div className="dup-group" key={d.type}>
+                <span className="dup-count">{d.n_samples}×</span>
+                <span className="dup-text">
+                  {d.label}
+                  {d.sample && <code className="pii-sample"> {d.sample}</code>}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="form-block" style={{ maxWidth: 460 }}>
+            <label className="checkbox-row">
+              <input
+                type="checkbox"
+                checked={redactPii}
+                onChange={(e) => setRedactPii(e.target.checked)}
+              />
+              Redact sensitive data in place (mask emails, keys, cards…)
+            </label>
+            <label className="checkbox-row">
+              <input
+                type="checkbox"
+                checked={removePii}
+                onChange={(e) => setRemovePii(e.target.checked)}
+              />
+              Remove the {pii.n_flagged} sample{pii.n_flagged === 1 ? '' : 's'} entirely
+            </label>
+          </div>
+        </>
+      )}
+
       <div className="keep-summary">
         Keeping <strong>{keep}</strong> of {total} samples
         {removeIndices.length > 0 && ` (removing ${removeIndices.length})`}
+        {redactPii && hasPii && ` · redacting sensitive content`}
       </div>
 
       <div className="cta-row">
         <button
           className="btn-primary"
-          disabled={applying || removeIndices.length === 0}
-          onClick={() => onApply(removeIndices)}
+          disabled={applying || !canApply}
+          onClick={() => onApply(removeIndices, redactPii)}
         >
           {applying ? 'Applying…' : 'Apply cleaning'}
         </button>

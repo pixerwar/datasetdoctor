@@ -276,9 +276,9 @@ export default function App() {
     setScreen('report')
   }
 
-  // ── Apply cleaning (remove selected pairs, recompute) ───────────────────
-  async function handleApplyClean(removeIndices: number[]) {
-    if (removeIndices.length === 0) return
+  // ── Apply cleaning (remove selected pairs, optionally redact, recompute) ──
+  async function handleApplyClean(removeIndices: number[], redactPii = false) {
+    if (removeIndices.length === 0 && !redactPii) return
     setError(null)
     if (scenario) {
       // Mock: shrink the sample count and clear the findings.
@@ -293,6 +293,7 @@ export default function App() {
                 duplicate_groups: [],
                 n_duplicate_extra: 0,
                 issues: {},
+                pii: { n_flagged: 0, indices: [], detectors: [], truncated: 0 },
                 token_max: prev.cleaning?.token_max ?? 0,
                 token_p95: prev.cleaning?.token_p95 ?? 0,
               },
@@ -305,7 +306,7 @@ export default function App() {
     if (!datasetId) return
     setSubmitting(true)
     try {
-      const res = await cleanDataset(datasetId, removeIndices)
+      const res = await cleanDataset(datasetId, removeIndices, redactPii)
       setReport(res.report)
       setDatasets((prev) =>
         prev.map((d) => (d.id === datasetId ? { ...d, report: res.report } : d)),

@@ -45,8 +45,10 @@ dataset_insight/
 ├── export/         # ChatML JSON export
 ├── cache/          # SQLite embedding cache
 ├── projection.py   # 2D semantic map (PCA)
+├── cleaning.py     # near-duplicate detection + quality lint
+├── pii.py          # sensitive-content scan (email/phone/card/IP/secrets) + redaction
 ├── pipeline.py     # combines the metrics and builds the report
-└── api/            # FastAPI endpoints + in-memory state store
+└── api/            # FastAPI endpoints + SQLite state store (survives restarts)
 ```
 
 Extension points (built on ABCs):
@@ -57,11 +59,14 @@ Extension points (built on ABCs):
 
 | Endpoint | Description |
 |---|---|
-| `POST /datasets/upload` | Upload a file → `{dataset_id, detected_format, mode, columns?, preview?}` |
-| `POST /datasets/{id}/configure` | Column mapping (structured), structural, or character/sample config (llm) → starts a job |
+| `POST /datasets/upload` | Create a dataset + add the first source → `{dataset_id, source}` |
+| `POST /datasets/{id}/sources` | Add another source (file) to the dataset |
+| `DELETE /datasets/{id}/sources/{sid}` | Remove a source |
+| `POST /datasets/{id}/configure` | Per-source column mapping / structural / llm config → starts a job |
 | `GET /datasets/{id}/status` | `{status, progress}` |
-| `GET /datasets/{id}/report` | Full analysis report (JSON) |
-| `GET /datasets/{id}/export` | ChatML JSON file (download) |
+| `GET /datasets/{id}/report` | Full analysis report (JSON), incl. `cleaning` + `cleaning.pii` |
+| `POST /datasets/{id}/clean` | Remove pair indices and/or `redact_pii` sensitive content → recomputed report |
+| `GET /datasets/{id}/export` | Export (`chatml`/`openai`/`alpaca`/`sharegpt`/`prompt_completion`; optional train/val `split`) |
 
 Sample report output (3 scenarios): [`docs/sample_report.json`](docs/sample_report.json).
 

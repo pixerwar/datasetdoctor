@@ -274,6 +274,51 @@ def test_clean_all_rejected():
     assert resp.status_code == 400
 
 
+def test_pii_scan_and_redact_via_clean():
+    # A CSV where some answers carry sensitive content.
+    lines = ["question,answer,topic"]
+    for i in range(40):
+        if i % 4 == 0:
+            ans = f"Email user{i}@example.com for topic T{i % 2}."
+        else:
+            ans = f"A plain answer number {i} about topic T{i % 2}."
+        lines.append(f"Question {i} about T{i % 2}?,{ans},T{i % 2}")
+    csv = "\n".join(lines).encode("utf-8")
+
+    up = client.post(
+        "/datasets/upload",
+        files={"file": ("pii.csv", io.BytesIO(csv), "text/csv")},
+    ).json()
+    dataset_id = up["dataset_id"]
+    sid = up["source"]["source_id"]
+    client.post(
+        f"/datasets/{dataset_id}/configure",
+        json={"sources": {sid: {"instruction_column": "question", "output_column": "answer"}}},
+    )
+
+    report = client.get(f"/datasets/{dataset_id}/report").json()
+    pii = report["cleaning"]["pii"]
+    assert pii["n_flagged"] == 10  # every 4th of 40
+    assert any(d["type"] == "email" for d in pii["detectors"])
+
+    # Redact in place (remove nothing) -> same sample count, sensitive content gone.
+    resp = client.post(
+        f"/datasets/{dataset_id}/clean",
+        json={"remove_indices": [], "redact_pii": True},
+    )
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["removed"] == 0
+    assert body["redactions"] == 10
+    assert body["report"]["n_samples"] == 40
+    assert body["report"]["cleaning"]["pii"]["n_flagged"] == 0
+
+    # Export no longer contains the emails.
+    data = client.get(f"/datasets/{dataset_id}/export").content.decode()
+    assert "@example.com" not in data
+    assert "[EMAIL]" in data
+
+
 def test_report_before_done_conflict():
     up = client.post(
         "/datasets/upload",

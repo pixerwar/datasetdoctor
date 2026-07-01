@@ -39,6 +39,7 @@ from ..ingestion.pdf_parser import PdfParser
 from ..ingestion.txt_parser import TxtParser
 from ..ingestion.xlsx_parser import XlsxParser
 from ..pipeline import build_report
+from ..pii import redact_pairs
 from .store import DatasetStore, Source
 
 app = FastAPI(title="Dataset Insight Tool", version="0.1.0")
@@ -171,6 +172,8 @@ async def _save_and_add_source(dataset_id: str, file: UploadFile) -> Source:
 # ---------------------------------------------------------------------------
 class CleanRequest(BaseModel):
     remove_indices: list[int] = []
+    # Mask sensitive content (emails, keys, cards, ...) in place on the kept pairs.
+    redact_pii: bool = False
 
 
 class ConfigureRequest(BaseModel):
@@ -349,7 +352,8 @@ async def report(dataset_id: str) -> JSONResponse:
 
 @app.post("/datasets/{dataset_id}/clean")
 async def clean(dataset_id: str, req: CleanRequest) -> JSONResponse:
-    """Remove the given pair indices, then recompute the report on the cleaned set."""
+    """Remove the given pair indices (and optionally redact sensitive content),
+    then recompute the report on the cleaned set."""
     record = store.get(dataset_id)
     if record is None:
         raise HTTPException(status_code=404, detail="dataset not found")
@@ -364,6 +368,10 @@ async def clean(dataset_id: str, req: CleanRequest) -> JSONResponse:
             status_code=400, detail="cleaning would remove every sample"
         )
 
+    n_redactions = 0
+    if req.redact_pii:
+        cleaned, n_redactions = redact_pairs(cleaned)
+
     try:
         report = build_report(
             cleaned,
@@ -374,7 +382,13 @@ async def clean(dataset_id: str, req: CleanRequest) -> JSONResponse:
         raise HTTPException(status_code=500, detail=str(exc))
 
     store.update(dataset_id, pairs=cleaned, report=report)
-    return JSONResponse({"removed": n_before - len(cleaned), "report": report})
+    return JSONResponse(
+        {
+            "removed": n_before - len(cleaned),
+            "redactions": n_redactions,
+            "report": report,
+        }
+    )
 
 
 def _disposition(filename: str) -> dict:

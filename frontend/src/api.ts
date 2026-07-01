@@ -99,17 +99,20 @@ export async function getReport(datasetId: string): Promise<ReportResponse> {
   return jsonOrThrow<ReportResponse>(resp)
 }
 
-/** Remove pair indices, recompute the report on the cleaned set. */
+/** Remove pair indices (and optionally redact PII), recompute the report. */
 export async function cleanDataset(
   datasetId: string,
   removeIndices: number[],
-): Promise<{ removed: number; report: ReportResponse }> {
+  redactPii = false,
+): Promise<{ removed: number; redactions: number; report: ReportResponse }> {
   const resp = await fetch(`/datasets/${datasetId}/clean`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ remove_indices: removeIndices }),
+    body: JSON.stringify({ remove_indices: removeIndices, redact_pii: redactPii }),
   })
-  return jsonOrThrow<{ removed: number; report: ReportResponse }>(resp)
+  return jsonOrThrow<{ removed: number; redactions: number; report: ReportResponse }>(
+    resp,
+  )
 }
 
 /** Download the exported dataset (format + optional train/val split). */

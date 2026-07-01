@@ -13,6 +13,8 @@ from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import connected_components
 from sklearn.metrics.pairwise import cosine_similarity
 
+from .pii import scan_pii
+
 DUP_THRESHOLD = 0.95  # cosine >= this -> near-duplicate
 SHORT_OUTPUT_CHARS = 10
 LONG_TOKEN_LIMIT = 2048
@@ -112,6 +114,7 @@ def analyze_cleaning(
         "duplicate_groups": groups[:50],
         "n_duplicate_extra": n_extra,
         "issues": issues,
+        "pii": scan_pii(pairs),
         "token_max": int(max(toks)) if toks else 0,
         "token_p95": int(np.percentile(toks, 95)) if toks else 0,
     }
