@@ -166,6 +166,10 @@ Sample report output (3 scenarios): [`docs/sample_report.json`](docs/sample_repo
 (lightweight offline embeddings — no torch), SQLite (persistence + embedding cache).
 **Frontend:** React 19, TypeScript, Vite.
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) and the [releases page](https://github.com/pixerwar/datasetdoctor/releases).
+
 ## License
 
 [MIT](LICENSE)
