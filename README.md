@@ -7,13 +7,20 @@ size risks before you waste a training run.**
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.14](https://img.shields.io/badge/python-3.14-blue)](requirements.txt)
 [![React 19](https://img.shields.io/badge/frontend-React%2019-61dafb)](frontend/package.json)
+[![Live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://dataset-doctor-production.up.railway.app)
+
+**[Try the live demo →](https://dataset-doctor-production.up.railway.app)** — no install, no signup;
+the Upload screen has three built-in sample datasets so you can see a full report in one click.
 
 Fine-tuning an LLM on a bad dataset wastes hours of compute and often makes the
 model *worse*. Dataset Doctor catches the usual failure modes — too few samples,
 near-duplicate spam, one category drowning out the rest, leaked emails/keys —
 **before** you train, and gives you one-click fixes for each.
 
-Runs entirely on your machine. Your data never leaves it.
+Self-hosted (see [Quickstart](#quickstart)), it runs entirely on your machine and
+your data never leaves it. The public demo above is a shared, unauthenticated
+instance for trying the tool — don't upload real sensitive data there, and treat
+it as ephemeral (it has no persistent storage, by design, so a restart clears it).
 
 ![Analysis report](docs/screenshots/02-report.png)
 
