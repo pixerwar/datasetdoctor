@@ -30,6 +30,9 @@ export function CleanScreen({
   )
   const pii = cleaning.pii
   const hasPii = !!pii && pii.n_flagged > 0
+  const rebalance = report.balance.rebalance
+  const canDownsample = !!rebalance?.applicable
+  const suggestions = rebalance?.suggestions ?? []
 
   const [dedup, setDedup] = useState(groups.length > 0)
   const [issueOn, setIssueOn] = useState<Record<string, boolean>>(() => {
@@ -41,6 +44,8 @@ export function CleanScreen({
   // rather than removing whole pairs.
   const [redactPii, setRedactPii] = useState(hasPii)
   const [removePii, setRemovePii] = useState(false)
+  // Downsampling discards real data, so it is opt-in (default off).
+  const [downsample, setDownsample] = useState(false)
 
   const removeIndices = useMemo(() => {
     const set = new Set<number>()
@@ -52,13 +57,18 @@ export function CleanScreen({
       if (issueOn[k]) cleaning.issues[k].indices.forEach((i) => set.add(i))
     }
     if (removePii && pii) pii.indices.forEach((i) => set.add(i))
+    if (downsample && rebalance) rebalance.remove_indices.forEach((i) => set.add(i))
     return Array.from(set)
-  }, [dedup, issueOn, groups, issueKeys, cleaning, removePii, pii])
+  }, [dedup, issueOn, groups, issueKeys, cleaning, removePii, pii, downsample, rebalance])
 
   const total = report.n_samples
   const keep = total - removeIndices.length
   const nothingFound =
-    groups.length === 0 && issueKeys.length === 0 && !hasPii
+    groups.length === 0 &&
+    issueKeys.length === 0 &&
+    !hasPii &&
+    !canDownsample &&
+    suggestions.length === 0
   // Redacting alone (no removals) is still a valid action to apply.
   const canApply = removeIndices.length > 0 || (redactPii && hasPii)
 
@@ -159,6 +169,40 @@ export function CleanScreen({
               Remove the {pii.n_flagged} sample{pii.n_flagged === 1 ? '' : 's'} entirely
             </label>
           </div>
+        </>
+      )}
+
+      {(canDownsample || suggestions.length > 0) && (
+        <>
+          <div className="section-title">Category balance</div>
+          {canDownsample && rebalance?.dominant && (
+            <>
+              <label className="checkbox-row">
+                <input
+                  type="checkbox"
+                  checked={downsample}
+                  onChange={(e) => setDownsample(e.target.checked)}
+                />
+                Downsample “{rebalance.dominant.category}” (
+                {Math.round(rebalance.dominant.share * 100)}% of the data) — removes{' '}
+                {rebalance.n_removable}, keeps {rebalance.target_count}
+              </label>
+              <div className="chip-row" style={{ marginTop: 8 }}>
+                {Object.entries(rebalance.result_counts).map(([cat, n]) => (
+                  <span key={cat} className="chip">
+                    {cat} · {n}
+                  </span>
+                ))}
+              </div>
+            </>
+          )}
+          {suggestions.length > 0 && (
+            <ul className="balance-hints">
+              {suggestions.map((s, i) => (
+                <li key={i}>{s}</li>
+              ))}
+            </ul>
+          )}
         </>
       )}
 

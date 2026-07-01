@@ -47,6 +47,7 @@ dataset_insight/
 ├── projection.py   # 2D semantic map (PCA)
 ├── cleaning.py     # near-duplicate detection + quality lint
 ├── pii.py          # sensitive-content scan (email/phone/card/IP/secrets) + redaction
+├── rebalance.py    # local class-imbalance fix (downsample dominant category, no API)
 ├── pipeline.py     # combines the metrics and builds the report
 └── api/            # FastAPI endpoints + SQLite state store (survives restarts)
 ```
@@ -64,7 +65,7 @@ Extension points (built on ABCs):
 | `DELETE /datasets/{id}/sources/{sid}` | Remove a source |
 | `POST /datasets/{id}/configure` | Per-source column mapping / structural / llm config → starts a job |
 | `GET /datasets/{id}/status` | `{status, progress}` |
-| `GET /datasets/{id}/report` | Full analysis report (JSON), incl. `cleaning` + `cleaning.pii` |
+| `GET /datasets/{id}/report` | Full analysis report (JSON), incl. `cleaning` + `cleaning.pii` + `balance.rebalance` |
 | `POST /datasets/{id}/clean` | Remove pair indices and/or `redact_pii` sensitive content → recomputed report |
 | `GET /datasets/{id}/export` | Export (`chatml`/`openai`/`alpaca`/`sharegpt`/`prompt_completion`; optional train/val `split`) |
 

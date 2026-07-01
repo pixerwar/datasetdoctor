@@ -15,6 +15,7 @@ from .metrics.diversity import compute_diversity, diversity_level
 from .metrics.size_adequacy import compute_size_adequacy
 from .metrics.training_time import estimate_training_time
 from .projection import compute_projection
+from .rebalance import plan_rebalance
 from .risk.composite import compute_composite_risk
 
 
@@ -91,6 +92,7 @@ def build_report(
             "category_counts": balance.get("category_counts", {}),
             "warnings": balance.get("warnings", []),
             "method": balance.get("method"),
+            "rebalance": plan_rebalance(pairs),
         },
         "size_adequacy": {
             "category": size["category"],

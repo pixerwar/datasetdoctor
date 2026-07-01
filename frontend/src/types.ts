@@ -74,6 +74,18 @@ export interface Cleaning {
   token_p95: number
 }
 
+export interface Rebalance {
+  applicable: boolean
+  method: 'explicit' | 'none'
+  dominant: { category: string; count: number; share: number } | null
+  target_share: number
+  target_count: number
+  n_removable: number
+  remove_indices: number[]
+  result_counts: Record<string, number>
+  suggestions: string[]
+}
+
 export interface ReportResponse {
   n_samples: number
   embedding_provider?: EmbeddingProvider
@@ -88,6 +100,7 @@ export interface ReportResponse {
     category_counts: Record<string, number>
     warnings: string[]
     method: BalanceMethod
+    rebalance?: Rebalance
   }
   size_adequacy: {
     category: string

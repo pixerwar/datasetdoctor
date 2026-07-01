@@ -319,6 +319,56 @@ def test_pii_scan_and_redact_via_clean():
     assert "[EMAIL]" in data
 
 
+def test_rebalance_plan_and_apply_via_clean():
+    # CSV heavily skewed toward one topic (dominant), plus a small minority.
+    lines = ["question,answer,topic"]
+    for i in range(90):
+        lines.append(f"Dominant question {i}?,Answer {i} with detail {i % 9}.,Python")
+    for i in range(30):
+        lines.append(f"Minor question {i}?,Answer {i} with detail {i % 7}.,History")
+    csv = "\n".join(lines).encode("utf-8")
+
+    up = client.post(
+        "/datasets/upload",
+        files={"file": ("skew.csv", io.BytesIO(csv), "text/csv")},
+    ).json()
+    dataset_id = up["dataset_id"]
+    sid = up["source"]["source_id"]
+    client.post(
+        f"/datasets/{dataset_id}/configure",
+        json={
+            "sources": {
+                sid: {
+                    "instruction_column": "question",
+                    "output_column": "answer",
+                    "category_column": "topic",
+                }
+            }
+        },
+    )
+
+    report = client.get(f"/datasets/{dataset_id}/report").json()
+    plan = report["balance"]["rebalance"]
+    assert plan["applicable"] is True
+    assert plan["dominant"]["category"] == "Python"
+    # keep k s.t. k/(30+k) <= 0.5 -> k = 30, remove 60
+    assert plan["target_count"] == 30
+    assert len(plan["remove_indices"]) == 60
+
+    # Apply the downsample through the existing clean flow.
+    resp = client.post(
+        f"/datasets/{dataset_id}/clean",
+        json={"remove_indices": plan["remove_indices"]},
+    )
+    assert resp.status_code == 200
+    new_report = resp.json()["report"]
+    assert new_report["n_samples"] == 60
+    counts = new_report["balance"]["category_counts"]
+    assert counts == {"Python": 30, "History": 30}
+    # Dominance is resolved -> plan no longer applicable.
+    assert new_report["balance"]["rebalance"]["applicable"] is False
+
+
 def test_report_before_done_conflict():
     up = client.post(
         "/datasets/upload",
