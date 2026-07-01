@@ -1,4 +1,5 @@
 import type { Screen } from '../types'
+import { MoonIcon, SunIcon } from '../icons'
 
 const STEPS: { key: string; label: string; screens: Screen[] }[] = [
   { key: 'upload', label: 'Upload', screens: ['upload'] },
@@ -41,8 +42,23 @@ export function Stepper({ screen, theme, onToggleTheme }: StepperProps) {
             )
           })}
         </div>
-        <button className="theme-toggle" onClick={onToggleTheme}>
-          {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+        <button
+          className={`theme-switch${theme === 'dark' ? ' is-dark' : ''}`}
+          onClick={onToggleTheme}
+          role="switch"
+          aria-checked={theme === 'dark'}
+          aria-label="Toggle dark mode"
+          title={theme === 'light' ? 'Switch to dark' : 'Switch to light'}
+        >
+          <span className="theme-switch-track">
+            <span className="theme-switch-glyph sun">
+              <SunIcon size={12} />
+            </span>
+            <span className="theme-switch-glyph moon">
+              <MoonIcon size={12} />
+            </span>
+            <span className="theme-switch-thumb" />
+          </span>
         </button>
       </div>
     </header>

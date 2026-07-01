@@ -196,12 +196,13 @@ textarea {
 }
 .dataset-item-delete {
   flex: none;
-  width: 26px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   background: none;
   color: var(--text-muted);
-  font-size: 17px;
-  line-height: 1;
   border-radius: 9px;
   cursor: pointer;
   opacity: 0;
@@ -301,14 +302,58 @@ textarea {
   background: var(--border-strong);
 }
 
-.theme-toggle {
+.theme-switch {
+  margin-left: 18px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+.theme-switch-track {
+  position: relative;
+  box-sizing: border-box;
+  width: 48px;
+  height: 24px;
+  border-radius: 999px;
   background: var(--surface-2);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 5px 9px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-left: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.theme-switch-glyph {
+  display: inline-flex;
+  color: var(--text-muted);
+  z-index: 2; /* above the thumb, so the active icon rides on it */
+  transition: color 0.15s;
+}
+/* Highlight the glyph the thumb is currently sitting on. */
+.theme-switch:not(.is-dark) .theme-switch-glyph.sun {
+  color: var(--text-warning, #d98a2b);
+}
+.theme-switch.is-dark .theme-switch-glyph.moon {
+  color: var(--text-primary);
+}
+.theme-switch-thumb {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  transform: translateY(-50%);
+  transition: left 0.18s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  z-index: 1;
+}
+.theme-switch.is-dark .theme-switch-thumb {
+  left: calc(100% - 22px);
 }
 
 /* ── Typography helpers ────────────────────────────────────────────────── */

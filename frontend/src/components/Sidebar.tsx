@@ -1,6 +1,6 @@
 import type { DatasetListItem } from '../types'
 import { riskColorVar } from '../display'
-import { PlusIcon } from '../icons'
+import { PlusIcon, TrashIcon } from '../icons'
 
 interface SidebarProps {
   datasets: DatasetListItem[]
@@ -66,7 +66,7 @@ export function Sidebar({
               aria-label={`Delete ${d.name}`}
               onClick={() => onDelete(d.id)}
             >
-              ×
+              <TrashIcon size={15} />
             </button>
           </div>
         ))}
