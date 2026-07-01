@@ -3,6 +3,7 @@
 **A health check for your fine-tuning datasets — diagnoses diversity, balance, and
 size risks before you waste a training run.**
 
+[![CI](https://github.com/pixerwar/datasetdoctor/actions/workflows/ci.yml/badge.svg)](https://github.com/pixerwar/datasetdoctor/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.14](https://img.shields.io/badge/python-3.14-blue)](requirements.txt)
 [![React 19](https://img.shields.io/badge/frontend-React%2019-61dafb)](frontend/package.json)
