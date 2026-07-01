@@ -23,6 +23,7 @@ from pathlib import Path
 from fastapi import BackgroundTasks, FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from ..conversion.llm_assisted import LLMConfig, convert_txt
@@ -69,6 +70,9 @@ DATA_DIR = Path(
 )
 UPLOAD_DIR = DATA_DIR / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+# Guard against accidental/abusive huge uploads (this API has no auth).
+MAX_UPLOAD_BYTES = 8 * 1024 * 1024  # 8 MB
 
 # Conversion modes:
 #   structured  -> field/column mapping (rule-based, free): csv, jsonl, xlsx
@@ -147,8 +151,15 @@ async def _save_and_add_source(dataset_id: str, file: UploadFile) -> Source:
             ),
         )
 
+    content = await file.read()
+    if len(content) > MAX_UPLOAD_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=f"File too large (max {MAX_UPLOAD_BYTES // (1024 * 1024)} MB).",
+        )
+
     dest = UPLOAD_DIR / f"{uuid.uuid4().hex}{suffix}"
-    dest.write_bytes(await file.read())
+    dest.write_bytes(content)
     mode = _FORMAT_MODE[detected_format]
 
     columns = preview = None
@@ -472,3 +483,11 @@ async def export(
 @app.get("/health")
 async def health() -> dict:
     return {"status": "ok"}
+
+
+# Serve the built frontend (production/single-service deploy) from the same origin
+# as the API — mounted last so it never shadows the routes above. No-op in local
+# dev (`npm run dev` uses the Vite proxy instead; frontend/dist won't exist yet).
+_FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+if _FRONTEND_DIST.is_dir():
+    app.mount("/", StaticFiles(directory=str(_FRONTEND_DIST), html=True), name="frontend")

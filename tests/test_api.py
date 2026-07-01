@@ -173,6 +173,17 @@ def test_remove_source():
     assert client.delete(f"/datasets/{dataset_id}/sources/bogus").status_code == 404
 
 
+def test_oversized_upload_rejected():
+    from dataset_insight.api.main import MAX_UPLOAD_BYTES
+
+    big = b"a" * (MAX_UPLOAD_BYTES + 1)
+    resp = client.post(
+        "/datasets/upload",
+        files={"file": ("big.csv", io.BytesIO(big), "text/csv")},
+    )
+    assert resp.status_code == 413
+
+
 def test_unsupported_format_rejected():
     resp = client.post(
         "/datasets/upload",

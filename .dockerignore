@@ -1,0 +1,16 @@
+.git
+.github
+.venv
+.pytest_cache
+__pycache__
+*.pyc
+briefs
+.claude
+docs
+tests
+data
+frontend/node_modules
+frontend/dist
+frontend/README.md
+README.md
+LICENSE
