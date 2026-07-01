@@ -184,6 +184,33 @@ class DatasetStore:
             self._conn.commit()
         return record
 
+    def count(self) -> int:
+        with self._lock:
+            return self._conn.execute("SELECT COUNT(*) FROM datasets").fetchone()[0]
+
+    def evict_to(self, keep_max: int) -> list[DatasetRecord]:
+        """Delete the oldest datasets until at most `keep_max` remain.
+
+        "Oldest" is insertion order (SQLite rowid). Returns the deleted records
+        so the caller can unlink their files. No-op if `keep_max <= 0`.
+        """
+        if keep_max <= 0:
+            return []
+        with self._lock:
+            total = self._conn.execute(
+                "SELECT COUNT(*) FROM datasets"
+            ).fetchone()[0]
+            n_remove = total - keep_max
+            if n_remove <= 0:
+                return []
+            rows = self._conn.execute(
+                "SELECT dataset_id FROM datasets ORDER BY rowid LIMIT ?",
+                (n_remove,),
+            ).fetchall()
+            ids = [row["dataset_id"] for row in rows]
+        # delete() re-acquires the lock, so call it after releasing above.
+        return [rec for rec in (self.delete(did) for did in ids) if rec is not None]
+
     def remove_source(self, dataset_id: str, source_id: str) -> bool:
         with self._lock:
             cur = self._conn.execute(

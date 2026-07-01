@@ -16,11 +16,22 @@ from __future__ import annotations
 
 import io
 import os
+import threading
+import time
 import uuid
 import zipfile
+from collections import defaultdict, deque
 from pathlib import Path
 
-from fastapi import BackgroundTasks, FastAPI, File, HTTPException, UploadFile
+from fastapi import (
+    BackgroundTasks,
+    Depends,
+    FastAPI,
+    File,
+    HTTPException,
+    Request,
+    UploadFile,
+)
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
@@ -73,6 +84,82 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 # Guard against accidental/abusive huge uploads (this API has no auth).
 MAX_UPLOAD_BYTES = 8 * 1024 * 1024  # 8 MB
+
+# --- Demo abuse protection (all opt-in; 0 = disabled, the default for local dev
+# and tests). Enabled on the public demo via env vars. ------------------------
+# Per-IP requests/minute on the expensive/mutating endpoints (0 = off).
+RATE_LIMIT_PER_MIN = int(os.environ.get("DATASET_INSIGHT_RATELIMIT", "0"))
+# Total datasets kept in the store; oldest are evicted past this (0 = unlimited).
+MAX_DATASETS = int(os.environ.get("DATASET_INSIGHT_MAX_DATASETS", "0"))
+
+_RATE_WINDOW = 60.0
+_rate_lock = threading.Lock()
+_rate_hits: dict[str, deque] = defaultdict(deque)
+
+
+def _client_ip(request: Request) -> str:
+    """Best-effort client IP — behind Railway's proxy, the first X-Forwarded-For
+    entry. This is spoofable (a client can prepend a fake XFF), so the per-IP
+    rate limit is casual "don't hammer" protection only; the hard resource bound
+    that no spoofing can bypass is the dataset cap (MAX_DATASETS)."""
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
+def rate_limit(request: Request) -> None:
+    """Per-IP fixed-window limiter for the shared, unauthenticated demo.
+
+    A FastAPI dependency on the write/compute-heavy endpoints. No-op unless
+    $DATASET_INSIGHT_RATELIMIT is set > 0, so local dev and tests are unaffected.
+    """
+    if RATE_LIMIT_PER_MIN <= 0:
+        return
+    ip = _client_ip(request)
+    now = time.monotonic()
+    with _rate_lock:
+        hits = _rate_hits[ip]
+        while hits and hits[0] <= now - _RATE_WINDOW:
+            hits.popleft()
+        if len(hits) >= RATE_LIMIT_PER_MIN:
+            retry_after = int(_RATE_WINDOW - (now - hits[0])) + 1
+            raise HTTPException(
+                status_code=429,
+                detail="Rate limit exceeded — this is a shared demo. Try again shortly.",
+                headers={"Retry-After": str(retry_after)},
+            )
+        hits.append(now)
+        # Opportunistically prune stale IP buckets so the map can't grow forever.
+        if len(_rate_hits) > 4096:
+            for stale in [k for k, v in _rate_hits.items() if not v]:
+                del _rate_hits[stale]
+
+
+def _unlink_sources(record) -> int:
+    """Best-effort delete of a record's uploaded files (scoped to UPLOAD_DIR)."""
+    removed = 0
+    for source in record.sources:
+        try:
+            path = Path(source.file_path)
+            if path.parent == UPLOAD_DIR and path.is_file():
+                path.unlink()
+                removed += 1
+        except OSError:
+            pass
+    return removed
+
+
+def _enforce_dataset_cap() -> None:
+    """Evict the oldest datasets (record + files) so the store stays bounded.
+
+    Keeps the ephemeral demo from filling disk/memory over time. No-op unless
+    $DATASET_INSIGHT_MAX_DATASETS is set > 0.
+    """
+    if MAX_DATASETS <= 0:
+        return
+    for evicted in store.evict_to(MAX_DATASETS):
+        _unlink_sources(evicted)
 
 # Conversion modes:
 #   structured  -> field/column mapping (rule-based, free): csv, jsonl, xlsx
@@ -297,16 +384,23 @@ def _build(dataset_id: str, req: ConfigureRequest) -> None:
 # Endpoints
 # ---------------------------------------------------------------------------
 @app.post("/datasets/upload")
-async def upload(file: UploadFile = File(...)) -> JSONResponse:
+async def upload(
+    file: UploadFile = File(...), _rl: None = Depends(rate_limit)
+) -> JSONResponse:
     record = store.create()
     source = await _save_and_add_source(record.dataset_id, file)
+    _enforce_dataset_cap()
     return JSONResponse(
         {"dataset_id": record.dataset_id, "source": _source_dict(source)}
     )
 
 
 @app.post("/datasets/{dataset_id}/sources")
-async def add_source(dataset_id: str, file: UploadFile = File(...)) -> JSONResponse:
+async def add_source(
+    dataset_id: str,
+    file: UploadFile = File(...),
+    _rl: None = Depends(rate_limit),
+) -> JSONResponse:
     if store.get(dataset_id) is None:
         raise HTTPException(status_code=404, detail="dataset not found")
     source = await _save_and_add_source(dataset_id, file)
@@ -327,17 +421,7 @@ async def delete_dataset(dataset_id: str) -> JSONResponse:
     if record is None:
         raise HTTPException(status_code=404, detail="dataset not found")
 
-    removed_files = 0
-    for source in record.sources:
-        try:
-            path = Path(source.file_path)
-            # Only touch files under our upload dir — never follow a stray path.
-            if path.parent == UPLOAD_DIR and path.is_file():
-                path.unlink()
-                removed_files += 1
-        except OSError:
-            pass  # best-effort cleanup; the DB record is already gone
-
+    removed_files = _unlink_sources(record)
     return JSONResponse({"ok": True, "removed_files": removed_files})
 
 
@@ -346,6 +430,7 @@ async def configure(
     dataset_id: str,
     background_tasks: BackgroundTasks,
     payload: dict,
+    _rl: None = Depends(rate_limit),
 ) -> JSONResponse:
     record = store.get(dataset_id)
     if record is None:
@@ -389,7 +474,9 @@ async def report(dataset_id: str) -> JSONResponse:
 
 
 @app.post("/datasets/{dataset_id}/clean")
-async def clean(dataset_id: str, req: CleanRequest) -> JSONResponse:
+async def clean(
+    dataset_id: str, req: CleanRequest, _rl: None = Depends(rate_limit)
+) -> JSONResponse:
     """Remove the given pair indices (and optionally redact sensitive content),
     then recompute the report on the cleaned set."""
     record = store.get(dataset_id)
