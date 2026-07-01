@@ -16,7 +16,6 @@ from __future__ import annotations
 
 import io
 import os
-import tempfile
 import uuid
 import zipfile
 from pathlib import Path
@@ -61,7 +60,14 @@ app.add_middleware(
 
 store = DatasetStore()
 
-UPLOAD_DIR = Path(tempfile.gettempdir()) / "dataset_insight_uploads"
+# Persistent data dir (same place as the SQLite DB) so uploaded files survive a
+# restart — a dataset can then be re-configured/rebuilt after the server bounces,
+# not just re-reported from the DB. Override with $DATASET_INSIGHT_DATA (tests do).
+DATA_DIR = Path(
+    os.environ.get("DATASET_INSIGHT_DATA")
+    or (Path(__file__).resolve().parents[2] / "data")
+)
+UPLOAD_DIR = DATA_DIR / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 # Conversion modes:
