@@ -369,6 +369,31 @@ def test_rebalance_plan_and_apply_via_clean():
     assert new_report["balance"]["rebalance"]["applicable"] is False
 
 
+def test_delete_dataset_removes_record_and_file():
+    import os
+
+    from dataset_insight.api.main import store
+
+    up = client.post(
+        "/datasets/upload",
+        files={"file": ("del.csv", io.BytesIO(_make_csv()), "text/csv")},
+    ).json()
+    dataset_id = up["dataset_id"]
+    # The uploaded file exists on disk before deletion.
+    file_path = store.get(dataset_id).sources[0].file_path
+    assert os.path.exists(file_path)
+
+    resp = client.delete(f"/datasets/{dataset_id}")
+    assert resp.status_code == 200
+    assert resp.json()["removed_files"] == 1
+
+    # Record is gone (report -> 404) and the file is unlinked.
+    assert client.get(f"/datasets/{dataset_id}/report").status_code == 404
+    assert not os.path.exists(file_path)
+    # Deleting again -> 404.
+    assert client.delete(f"/datasets/{dataset_id}").status_code == 404
+
+
 def test_report_before_done_conflict():
     up = client.post(
         "/datasets/upload",

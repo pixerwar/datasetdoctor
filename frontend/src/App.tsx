@@ -11,6 +11,7 @@ import {
   addSource,
   cleanDataset,
   configureDataset,
+  deleteDataset,
   downloadExport,
   getReport,
   getStatus,
@@ -276,6 +277,23 @@ export default function App() {
     setScreen('report')
   }
 
+  async function handleDeleteDataset(id: string) {
+    const item = datasets.find((d) => d.id === id)
+    if (!item) return
+    // Real backend datasets are deleted server-side; demo (mock) ones are local only.
+    if (!item.scenario) {
+      try {
+        await deleteDataset(id)
+      } catch (e) {
+        setError(`Could not delete dataset: ${(e as Error).message}`)
+        return
+      }
+    }
+    setDatasets((prev) => prev.filter((d) => d.id !== id))
+    // If the open dataset was deleted, clear the view back to a fresh upload.
+    if (selectedId === id || datasetId === id) resetToUpload()
+  }
+
   // ── Apply cleaning (remove selected pairs, optionally redact, recompute) ──
   async function handleApplyClean(removeIndices: number[], redactPii = false) {
     if (removeIndices.length === 0 && !redactPii) return
@@ -352,6 +370,7 @@ export default function App() {
         selectedId={selectedId}
         onNew={resetToUpload}
         onSelect={handleSelect}
+        onDelete={handleDeleteDataset}
       />
       <div className="main-area">
         <Stepper

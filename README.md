@@ -63,6 +63,7 @@ Extension points (built on ABCs):
 | `POST /datasets/upload` | Create a dataset + add the first source → `{dataset_id, source}` |
 | `POST /datasets/{id}/sources` | Add another source (file) to the dataset |
 | `DELETE /datasets/{id}/sources/{sid}` | Remove a source |
+| `DELETE /datasets/{id}` | Delete the dataset: DB record (+ sources) and uploaded files |
 | `POST /datasets/{id}/configure` | Per-source column mapping / structural / llm config → starts a job |
 | `GET /datasets/{id}/status` | `{status, progress}` |
 | `GET /datasets/{id}/report` | Full analysis report (JSON), incl. `cleaning` + `cleaning.pii` + `balance.rebalance` |

@@ -170,15 +170,9 @@ textarea {
 
 .dataset-item {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  background: none;
-  border: none;
-  text-align: left;
+  align-items: stretch;
   border-radius: 9px;
   margin: 1px 0;
-  padding: 8px 8px;
-  color: inherit;
   transition: background 0.12s;
 }
 .dataset-item:hover {
@@ -186,6 +180,39 @@ textarea {
 }
 .dataset-item.selected {
   background: var(--surface-3);
+}
+.dataset-item-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: none;
+  border: none;
+  text-align: left;
+  border-radius: 9px;
+  padding: 8px 8px;
+  color: inherit;
+}
+.dataset-item-delete {
+  flex: none;
+  width: 26px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 1;
+  border-radius: 9px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s, color 0.12s, background 0.12s;
+}
+.dataset-item:hover .dataset-item-delete {
+  opacity: 1;
+}
+.dataset-item-delete:hover {
+  color: var(--text-danger, #e5484d);
+  background: var(--surface-4, var(--surface-3));
 }
 
 .status-dot {

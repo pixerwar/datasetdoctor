@@ -7,9 +7,16 @@ interface SidebarProps {
   selectedId: string | null
   onNew: () => void
   onSelect: (id: string) => void
+  onDelete: (id: string) => void
 }
 
-export function Sidebar({ datasets, selectedId, onNew, onSelect }: SidebarProps) {
+export function Sidebar({
+  datasets,
+  selectedId,
+  onNew,
+  onSelect,
+  onDelete,
+}: SidebarProps) {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
@@ -37,20 +44,31 @@ export function Sidebar({ datasets, selectedId, onNew, onSelect }: SidebarProps)
           </div>
         )}
         {datasets.map((d) => (
-          <button
+          <div
             key={d.id}
             className={`dataset-item${d.id === selectedId ? ' selected' : ''}`}
-            onClick={() => onSelect(d.id)}
           >
-            <span
-              className="status-dot"
-              style={{ background: riskColorVar(d.report.composite_risk.risk_level) }}
-            />
-            <span className="dataset-item-text">
-              <span className="dataset-item-name">{d.name}</span>
-              <span className="dataset-item-meta">{d.date}</span>
-            </span>
-          </button>
+            <button className="dataset-item-main" onClick={() => onSelect(d.id)}>
+              <span
+                className="status-dot"
+                style={{
+                  background: riskColorVar(d.report.composite_risk.risk_level),
+                }}
+              />
+              <span className="dataset-item-text">
+                <span className="dataset-item-name">{d.name}</span>
+                <span className="dataset-item-meta">{d.date}</span>
+              </span>
+            </button>
+            <button
+              className="dataset-item-delete"
+              title="Delete dataset"
+              aria-label={`Delete ${d.name}`}
+              onClick={() => onDelete(d.id)}
+            >
+              ×
+            </button>
+          </div>
         ))}
       </div>
     </aside>

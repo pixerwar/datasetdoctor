@@ -309,6 +309,27 @@ async def delete_source(dataset_id: str, source_id: str) -> JSONResponse:
     return JSONResponse({"ok": True})
 
 
+@app.delete("/datasets/{dataset_id}")
+async def delete_dataset(dataset_id: str) -> JSONResponse:
+    """Delete a dataset: its DB record (+ sources via cascade) and uploaded files."""
+    record = store.delete(dataset_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="dataset not found")
+
+    removed_files = 0
+    for source in record.sources:
+        try:
+            path = Path(source.file_path)
+            # Only touch files under our upload dir — never follow a stray path.
+            if path.parent == UPLOAD_DIR and path.is_file():
+                path.unlink()
+                removed_files += 1
+        except OSError:
+            pass  # best-effort cleanup; the DB record is already gone
+
+    return JSONResponse({"ok": True, "removed_files": removed_files})
+
+
 @app.post("/datasets/{dataset_id}/configure")
 async def configure(
     dataset_id: str,

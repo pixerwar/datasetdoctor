@@ -76,6 +76,12 @@ export async function removeSource(
   await jsonOrThrow<{ ok: boolean }>(resp)
 }
 
+/** Delete a whole dataset (DB record + uploaded files). */
+export async function deleteDataset(datasetId: string): Promise<void> {
+  const resp = await fetch(`/datasets/${datasetId}`, { method: 'DELETE' })
+  await jsonOrThrow<{ ok: boolean }>(resp)
+}
+
 /** Configure all sources and start the build. */
 export async function configureDataset(
   datasetId: string,

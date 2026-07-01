@@ -168,6 +168,22 @@ class DatasetStore:
             self._conn.commit()
         return source
 
+    def delete(self, dataset_id: str) -> DatasetRecord | None:
+        """Delete a dataset (and its sources, via ON DELETE CASCADE).
+
+        Returns the deleted record (so the caller can unlink its files), or None
+        if the dataset does not exist.
+        """
+        record = self.get(dataset_id)
+        if record is None:
+            return None
+        with self._lock:
+            self._conn.execute(
+                "DELETE FROM datasets WHERE dataset_id = ?", (dataset_id,)
+            )
+            self._conn.commit()
+        return record
+
     def remove_source(self, dataset_id: str, source_id: str) -> bool:
         with self._lock:
             cur = self._conn.execute(
