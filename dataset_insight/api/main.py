@@ -41,14 +41,9 @@ from ..conversion.llm_assisted import LLMConfig, convert_txt
 from ..conversion.rule_based import convert_csv_rows
 from ..conversion.structural import convert_structural
 from ..export.formats import FORMATS, export_pairs, stratified_split
-from ..ingestion.base import DocumentParser
-from ..ingestion.csv_parser import CsvParser
-from ..ingestion.docx_parser import DocxParser
-from ..ingestion.jsonl_parser import JsonlParser
-from ..ingestion.markdown_parser import MarkdownParser
-from ..ingestion.pdf_parser import PdfParser
-from ..ingestion.txt_parser import TxtParser
-from ..ingestion.xlsx_parser import XlsxParser
+from ..formats import EXT_TO_FORMAT as _EXT_TO_FORMAT
+from ..formats import FORMAT_MODE as _FORMAT_MODE
+from ..formats import FORMAT_PARSER as _FORMAT_PARSER
 from ..pipeline import build_report
 from ..pii import redact_pairs
 from .store import DatasetStore, Source
@@ -160,41 +155,6 @@ def _enforce_dataset_cap() -> None:
         return
     for evicted in store.evict_to(MAX_DATASETS):
         _unlink_sources(evicted)
-
-# Conversion modes:
-#   structured  -> field/column mapping (rule-based, free): csv, jsonl, xlsx
-#   structural  -> heading/FAQ extraction (LLM-free): markdown, pdf, docx
-#   llm         -> LLM-assisted question-answer generation: txt
-_FORMAT_PARSER: dict[str, type[DocumentParser]] = {
-    "csv": CsvParser,
-    "jsonl": JsonlParser,
-    "xlsx": XlsxParser,
-    "txt": TxtParser,
-    "markdown": MarkdownParser,
-    "pdf": PdfParser,
-    "docx": DocxParser,
-}
-_FORMAT_MODE = {
-    "csv": "structured",
-    "jsonl": "structured",
-    "xlsx": "structured",
-    "txt": "llm",
-    "markdown": "structural",
-    "pdf": "structural",
-    "docx": "structural",
-}
-_EXT_TO_FORMAT = {
-    ".csv": "csv",
-    ".jsonl": "jsonl",
-    ".json": "jsonl",
-    ".xlsx": "xlsx",
-    ".txt": "txt",
-    ".md": "markdown",
-    ".markdown": "markdown",
-    ".pdf": "pdf",
-    ".docx": "docx",
-}
-
 
 def _columns_and_preview(rows: list[dict], n_preview: int = 3) -> tuple[list[str], list[list[str]]]:
     """Extract column names and preview rows from structured rows."""

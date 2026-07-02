@@ -95,14 +95,37 @@ cleaning, PII scan, rebalance, export) runs fully offline.
 No file to test with? The Upload screen ships three built-in demo datasets
 (good / imbalanced / risky) so you can try the full flow immediately.
 
+## CLI (no server, no browser)
+
+For developers and CI, analyze or export a dataset straight from the terminal:
+
+```bash
+# Quality/risk report (human-readable summary)
+python -m dataset_insight analyze data.csv --category topic
+
+# Machine-readable JSON (pipe into jq, etc.)
+python -m dataset_insight analyze data.csv --json
+
+# CI gate: exit 1 if the risk level is at or above the threshold
+python -m dataset_insight analyze data.csv --fail-on medium_high
+
+# Convert + export to a training format (optionally with a train/val split)
+python -m dataset_insight export data.csv --format chatml -o out.jsonl
+python -m dataset_insight export data.csv --format openai -o ds.jsonl --split 0.1
+```
+
+Structured files auto-detect common `instruction`/`output` column names; override
+with `--instruction`/`--output`/`--category`. Everything runs offline (the CLI
+never starts the server or touches the database).
+
 ## Tests
 
 ```bash
 .venv/Scripts/python.exe -m pytest tests/ -q
 ```
 
-88 tests covering the metrics + risk matrix, all 7 input formats, the cleaning
-pipeline (dedup, PII, rebalance), persistence, and the end-to-end API flow.
+100 tests covering the metrics + risk matrix, all 7 input formats, the cleaning
+pipeline (dedup, PII, rebalance), persistence, the CLI, and the end-to-end API flow.
 
 ## Architecture
 
@@ -120,6 +143,8 @@ dataset_insight/
 ├── pii.py          # sensitive-content scan (email/phone/card/IP/secrets) + redaction
 ├── rebalance.py    # local class-imbalance fix (downsample dominant category, no API)
 ├── pipeline.py     # combines the metrics and builds the report
+├── formats.py      # format→parser/mode maps shared by the API and the CLI
+├── cli.py          # terminal CLI: analyze / export (python -m dataset_insight)
 └── api/            # FastAPI endpoints + SQLite state store (survives restarts)
 ```
 
