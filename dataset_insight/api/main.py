@@ -48,7 +48,7 @@ from ..pipeline import build_report
 from ..pii import redact_pairs
 from .store import DatasetStore, Source
 
-app = FastAPI(title="Dataset Insight Tool", version="0.1.0")
+app = FastAPI(title="Dataset Insight Tool", version="0.1.1")
 
 # Local development origins: Vite dev server (5173) and preview (4173).
 # In dev the Vite proxy already makes CORS unnecessary; this is for direct,

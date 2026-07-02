@@ -4,6 +4,26 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] — 2026-07-01
+
+### Added
+
+- **Terminal CLI** (`python -m dataset_insight`) for headless, UI-free use:
+  - `analyze <file>` — a quality/risk report as an ASCII summary or `--json`.
+    `--fail-on <low|medium|medium_high|high>` exits non-zero when the risk level
+    meets the threshold, so it drops straight into CI.
+  - `export <file> --format … [-o out] [--split]` — convert + export to any of
+    the training formats, with an optional stratified train/val split.
+  - Structured files auto-detect common `instruction`/`output` column names.
+  - Runs fully offline; never starts the server or touches the database.
+- **Demo abuse protection** (opt-in, env-gated) — per-IP rate limit and a
+  dataset cap with oldest-first eviction for the public demo.
+
+### Changed
+
+- Format→parser/mode maps extracted to `dataset_insight/formats.py`, shared by
+  the API and the CLI (no behavior change).
+
 ## [0.1.0] — 2026-07-01
 
 First public release. A health check for fine-tuning datasets: upload a file,
@@ -36,4 +56,5 @@ get a quality/risk report, and fix the problems before you train — all locally
 - **Project hygiene** — MIT license, CI (pytest + frontend build), README with
   screenshots, and an 8 MB upload cap on the public API.
 
+[0.1.1]: https://github.com/pixerwar/datasetdoctor/releases/tag/v0.1.1
 [0.1.0]: https://github.com/pixerwar/datasetdoctor/releases/tag/v0.1.0
